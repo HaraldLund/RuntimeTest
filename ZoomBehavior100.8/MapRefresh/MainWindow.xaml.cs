@@ -374,14 +374,9 @@ namespace MapRefresh
         }
     }
 
-    public class LevelDetails
-    {
-        public int TileCount { get; set; }
-        public string RuntimeVersion { get; set; }
-        public TimeSpan Duration { get; set; }
-        public MapPoint Center { get; set; }
-        public int Scale { get; set; }
-    }
+
+
+    #region ZoomSimulator
     public class ZoomSimulator : INotifyPropertyChanged
     {
         #region Private members
@@ -402,7 +397,7 @@ namespace MapRefresh
         }
 
         public ObservableCollection<LevelDetails> Items { get; }
-        
+
         public Visibility IsRunning
         {
             get { return _isRunning; }
@@ -414,7 +409,7 @@ namespace MapRefresh
                 OnPropertyChanged();
             }
         }
-        
+
 
         public async Task Run()
         {
@@ -447,7 +442,7 @@ namespace MapRefresh
             {
                 var x = new LevelDetails
                 {
-                    Center = (MapPoint) e.Viewpoint.TargetGeometry,
+                    Center = (MapPoint)e.Viewpoint.TargetGeometry,
                     Duration = _watch.Elapsed,
                     RuntimeVersion = e.Runtime,
                     Scale = (int)e.Viewpoint.TargetScale,
@@ -464,7 +459,7 @@ namespace MapRefresh
 
         private void LogData(LevelDetails details)
         {
-            Application.Current.Dispatcher.BeginInvoke((Action)(()=>Items.Insert(0, details)));
+            Application.Current.Dispatcher.BeginInvoke((Action)(() => Items.Insert(0, details)));
             // runtime version; Elapsed time; tile count; scale; geometry
             LogToCsv($"{details.RuntimeVersion};{(int)details.Duration.TotalMilliseconds};{details.TileCount};{details.Scale};{details.Center}");
             // TODO: Log to CVS
@@ -486,7 +481,9 @@ namespace MapRefresh
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+    #endregion
 
+    #region ZoomProviderBase, DrawFinishEventArgs, LevelDetails
     public class DrawFinishEventArgs : EventArgs
     {
         #region Constructor
@@ -505,7 +502,16 @@ namespace MapRefresh
 
         #endregion
     }
-    
+
+    public class LevelDetails
+    {
+        public int TileCount { get; set; }
+        public string RuntimeVersion { get; set; }
+        public TimeSpan Duration { get; set; }
+        public MapPoint Center { get; set; }
+        public int Scale { get; set; }
+    }
+
     public abstract class ZoomProviderBase
     {
         public event EventHandler<DrawFinishEventArgs> DrawFinished;
@@ -519,7 +525,9 @@ namespace MapRefresh
 
         public abstract string RuntimeVersion { get; }
     }
+    #endregion
 
+    #region ZoomProvider
     public class ZoomProvider : ZoomProviderBase
     {
         #region Private members
@@ -542,7 +550,7 @@ namespace MapRefresh
 
         private void _mapView_DrawStatusChanged(object sender, DrawStatusChangedEventArgs e)
         {
-            if(e.Status == DrawStatus.Completed)
+            if (e.Status == DrawStatus.Completed)
             {
                 Esri.ArcGISRuntime.Http.ArcGISHttpClientHandler.HttpRequestBegin -= ArcGISHttpClientHandler_HttpRequestBegin;
                 _mapView.DrawStatusChanged -= _mapView_DrawStatusChanged;
@@ -564,6 +572,7 @@ namespace MapRefresh
             _tileCount++;
         }
     }
+    #endregion
 
 
 }
