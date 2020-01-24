@@ -2,9 +2,12 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +15,7 @@ using System.Windows.Input;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using MapRefresh.View.ViewModel;
 
 namespace MapRefresh
@@ -27,8 +31,6 @@ namespace MapRefresh
         private readonly ConcurrentQueue<string> _temporaryRequestList = new ConcurrentQueue<string>();
         private readonly ConcurrentDictionary<string, TileRequestDetails> _requestDictionary =
             new ConcurrentDictionary<string, TileRequestDetails>();
-        private Envelope _initialExtent;
-        private ICommand _setViewCommand;
 
         private Map _map = new Map();
         private bool _ZoomingTriggered = false;
@@ -39,6 +41,7 @@ namespace MapRefresh
         private List<int> _seconds = new List<int>();
         private string _File;
         private readonly ViewpointProvider _viewpointProvider;
+        
 
         #endregion
 
@@ -58,8 +61,22 @@ namespace MapRefresh
             MyMapView.Map = _map;
             MyMapView.DrawStatusChanged += MyMapView_DrawStatusChanged;
             _viewpointProvider = new ViewpointProvider();
+            ZoomSimulator = new ZoomSimulator(_viewpointProvider, new ZoomProvider(MyMapView));
+            LegacyZoomSimulator = new ZoomSimulator(_viewpointProvider, new LegacyZoomProvider(LegacyMap));
+            _map.LoadStatusChanged += _map_LoadStatusChanged;
         }
+        public static readonly DependencyProperty LegacyZoomSimulatorProperty = DependencyProperty.Register("LegacyZoomSimulator", typeof(ZoomSimulator), typeof(MainWindow), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty ZoomSimulatorProperty = DependencyProperty.Register("ZoomSimulator", typeof(ZoomSimulator), typeof(MainWindow), new FrameworkPropertyMetadata(null));
+        
+        
 
+        private void _map_LoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
+        {
+            if (sender is Map map && e.Status == Esri.ArcGISRuntime.LoadStatus.Loaded)
+            {
+                Dispatcher.BeginInvoke((Action)(() => LegacyMapLoader.InitializeLegacy(LegacyMap, map)));
+            }
+        }
 
         private void MyMapView_DrawStatusChanged(object sender, DrawStatusChangedEventArgs e)
         {
@@ -88,19 +105,13 @@ namespace MapRefresh
             Dispatcher.Invoke(delegate ()
             {
                 // Show the activity indicator if the map is drawing
-                if (isComplete == false)
+                if (isComplete)
                 {
-                    ActivityIndicator.IsEnabled = true;
-                    ActivityIndicator.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    ActivityIndicator.IsEnabled = false;
-                    ActivityIndicator.Visibility = Visibility.Collapsed;
                     UpdateTileCount(DateTime.Now);
 
                     if (DrawFinished != null)
                     {
+                        // TODO: Replaced by ZoomProvider
                         _ZoomIntervall++;
                         DrawFinished(this, new EventArgs());
                     }
@@ -119,10 +130,10 @@ namespace MapRefresh
                 .ToList();
             _requestDictionary.Clear();
             Items.Clear();
-            
+
             StringBuilder csvfile = new StringBuilder();
             StringBuilder builder = new StringBuilder();
-            string runtimeversion =  Assembly.GetAssembly(typeof(Map)).GetName().Version.ToString();
+            string runtimeversion = Assembly.GetAssembly(typeof(Map)).GetName().Version.ToString();
             builder.AppendLine($"RuntimeVersion:{runtimeversion} ");
             if (tileRequestDetails.Count == 0)
                 builder.AppendLine($"Missing Tile Information");
@@ -210,11 +221,34 @@ namespace MapRefresh
             }
         }
 
-        public static readonly DependencyProperty IsZoomOverrideProperty = DependencyProperty.Register("IsZoomOverride", typeof(bool), typeof(MainWindow), new FrameworkPropertyMetadata(false));
         public static readonly DependencyProperty SummaryProperty = DependencyProperty.Register("Summary", typeof(string), typeof(MainWindow), new FrameworkPropertyMetadata(null));
         public static readonly DependencyProperty UseAnimationProperty = DependencyProperty.Register("UseAnimation", typeof(bool), typeof(MainWindow), new FrameworkPropertyMetadata(true));
-        
 
+
+        public ZoomSimulator ZoomSimulator
+        {
+            // IMPORTANT: To maintain parity between setting a property in XAML and procedural code, do not touch the getter and setter inside this dependency property!
+            get
+            {
+                return (ZoomSimulator)GetValue(ZoomSimulatorProperty);
+            }
+            set
+            {
+                SetValue(ZoomSimulatorProperty, value);
+            }
+        }
+        public ZoomSimulator LegacyZoomSimulator
+        {
+            // IMPORTANT: To maintain parity between setting a property in XAML and procedural code, do not touch the getter and setter inside this dependency property!
+            get
+            {
+                return (ZoomSimulator)GetValue(LegacyZoomSimulatorProperty);
+            }
+            set
+            {
+                SetValue(LegacyZoomSimulatorProperty, value);
+            }
+        }
         public bool UseAnimation
         {
             get
@@ -226,17 +260,7 @@ namespace MapRefresh
                 SetValue(UseAnimationProperty, value);
             }
         }
-        public bool IsZoomOverride
-        {
-            get
-            {
-                return (bool)GetValue(IsZoomOverrideProperty);
-            }
-            set
-            {
-                SetValue(IsZoomOverrideProperty, value);
-            }
-        }
+
         public string Summary
         {
             get
@@ -258,43 +282,6 @@ namespace MapRefresh
         {
             Items.Clear();
             Summary = null;
-        }
-
-        public ICommand SetViewCommand => _setViewCommand ??
-                                                (_setViewCommand =
-                                                    new RelayCommand(param => OnSetViewCommand()));
-
-        private async void OnSetViewCommand()
-        {
-
-
-            var center = GetRandomPoint();
-            var scale = 625;
-            if ((MyMapView.MapScale < 200000))
-            {
-                scale = 1000000;
-            }
-            if (UseAnimation)
-            {
-                await MyMapView.SetViewpointAsync(new Viewpoint(center, scale));
-            }
-            else
-            {
-                await MyMapView.SetViewpointAsync(new Viewpoint(center, scale), TimeSpan.Zero);
-            }
-        }
-
-        private MapPoint GetRandomPoint()
-        {
-
-            if (_initialExtent == null)
-            {
-                _initialExtent = new Envelope(-247299.989220551, 6492055.69864222, 432816.894880079, 6992299.56471097, new SpatialReference(25833));
-            }
-            var x = new Random().Next((int)_initialExtent.XMin, (int)_initialExtent.XMax);
-            var y = new Random().Next((int)_initialExtent.YMin, (int)_initialExtent.YMax);
-            var center = new MapPoint(x, y, _initialExtent.SpatialReference);
-            return center;
         }
 
         private async void doWheelZoomSim(Viewpoint viewpoint)
@@ -376,9 +363,207 @@ namespace MapRefresh
 
         }
 
-        private void buttonz_Click(object sender, RoutedEventArgs e)
+        private async void buttonz_Click(object sender, RoutedEventArgs e)
         {
+             await ZoomSimulator.Run();
+        }
 
+        private async void StartSimulateLegacy(object sender, RoutedEventArgs e)
+        {
+            await LegacyZoomSimulator.Run();
         }
     }
+
+    public class LevelDetails
+    {
+        public int TileCount { get; set; }
+        public string RuntimeVersion { get; set; }
+        public TimeSpan Duration { get; set; }
+        public MapPoint Center { get; set; }
+        public int Scale { get; set; }
+    }
+    public class ZoomSimulator : INotifyPropertyChanged
+    {
+        #region Private members
+        private Visibility _isRunning = Visibility.Collapsed;
+        private readonly ViewpointProvider _viewpointProvider;
+        private readonly ZoomProviderBase _zoomProvider;
+        private readonly Stopwatch _watch = new Stopwatch();
+        private readonly string _logFile;
+        #endregion
+
+        public ZoomSimulator(ViewpointProvider viewpointProvider, ZoomProviderBase zoomProvider)
+        {
+            _viewpointProvider = viewpointProvider;
+            _zoomProvider = zoomProvider;
+            Items = new ObservableCollection<LevelDetails>();
+            _logFile = Path.Combine(MainWindow.AssemblyDirectory, $"ZoomLog-{zoomProvider.RuntimeVersion}.csv");
+            LogToCsv("runtimeversion;duration;tilecount;scale;center");
+        }
+
+        public ObservableCollection<LevelDetails> Items { get; }
+        
+        public Visibility IsRunning
+        {
+            get { return _isRunning; }
+            set
+            {
+                if (_isRunning == value)
+                    return;
+                _isRunning = value;
+                OnPropertyChanged();
+            }
+        }
+        
+
+        public async Task Run()
+        {
+            Items.Clear();
+            IsRunning = Visibility.Visible;
+            _viewpointProvider.Reset();
+            await ExecuteZoom();
+        }
+
+        private async Task<bool> ExecuteZoom()
+        {
+            // TODO: do multiple iterations?
+            var viewpoint = _viewpointProvider.GetNext();
+            if (viewpoint == null)
+            {
+                return false;
+            }
+
+            await Task.Delay(100);
+            _zoomProvider.DrawFinished += _zoomProvider_DrawFinished;
+            _watch.Restart();
+            await _zoomProvider.ZoomTo(viewpoint);
+            return true;
+        }
+
+        private async void _zoomProvider_DrawFinished(object sender, DrawFinishEventArgs e)
+        {
+            _watch.Stop();
+            if (_watch.ElapsedMilliseconds > 0)
+            {
+                var x = new LevelDetails
+                {
+                    Center = (MapPoint) e.Viewpoint.TargetGeometry,
+                    Duration = _watch.Elapsed,
+                    RuntimeVersion = e.Runtime,
+                    Scale = (int)e.Viewpoint.TargetScale,
+                    TileCount = e.RequestedTiles
+                };
+                LogData(x);
+            }
+            if (!await ExecuteZoom())
+            {
+                _zoomProvider.DrawFinished -= _zoomProvider_DrawFinished;
+                IsRunning = Visibility.Collapsed;
+            }
+        }
+
+        private void LogData(LevelDetails details)
+        {
+            Application.Current.Dispatcher.BeginInvoke((Action)(()=>Items.Insert(0, details)));
+            // runtime version; Elapsed time; tile count; scale; geometry
+            LogToCsv($"{details.RuntimeVersion};{(int)details.Duration.TotalMilliseconds};{details.TileCount};{details.Scale};{details.Center}");
+            // TODO: Log to CVS
+        }
+
+        private void LogToCsv(string text)
+        {
+            using (StreamWriter sw = File.AppendText(_logFile))
+            {
+                sw.WriteLine(text);
+            }
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    public class DrawFinishEventArgs : EventArgs
+    {
+        #region Constructor
+        public DrawFinishEventArgs(Viewpoint viewpoint, int requestedTiles, string runtime)
+        {
+            Viewpoint = viewpoint;
+            RequestedTiles = requestedTiles;
+            Runtime = runtime;
+        }
+        #endregion
+
+        #region Public properties
+        public Viewpoint Viewpoint { get; }
+        public int RequestedTiles { get; }
+        public string Runtime { get; }
+
+        #endregion
+    }
+    
+    public abstract class ZoomProviderBase
+    {
+        public event EventHandler<DrawFinishEventArgs> DrawFinished;
+
+        protected void OnDrawFinished(Viewpoint viewpoint, int tileCount, string runtime)
+        {
+            DrawFinished?.Invoke(this, new DrawFinishEventArgs(viewpoint, tileCount, runtime));
+        }
+
+        public abstract Task ZoomTo(Viewpoint viewpoint);
+
+        public abstract string RuntimeVersion { get; }
+    }
+
+    public class ZoomProvider : ZoomProviderBase
+    {
+        #region Private members
+        private readonly MapView _mapView;
+        private Viewpoint _currentViewpoint;
+        private int _tileCount;
+        private readonly string _runtimeVersion;
+        #endregion
+
+        #region Constructor
+        public ZoomProvider(MapView mapView)
+        {
+            _mapView = mapView;
+            _runtimeVersion = mapView.GetType().Assembly.GetName().Version.ToString();
+        }
+
+        public override string RuntimeVersion => _runtimeVersion;
+
+        #endregion
+
+        private void _mapView_DrawStatusChanged(object sender, DrawStatusChangedEventArgs e)
+        {
+            if(e.Status == DrawStatus.Completed)
+            {
+                Esri.ArcGISRuntime.Http.ArcGISHttpClientHandler.HttpRequestBegin -= ArcGISHttpClientHandler_HttpRequestBegin;
+                _mapView.DrawStatusChanged -= _mapView_DrawStatusChanged;
+                OnDrawFinished(_currentViewpoint, _tileCount, _runtimeVersion);
+                _tileCount = 0;
+            }
+        }
+
+        public override async Task ZoomTo(Viewpoint viewpoint)
+        {
+            _currentViewpoint = viewpoint;
+            _mapView.DrawStatusChanged += _mapView_DrawStatusChanged;
+            Esri.ArcGISRuntime.Http.ArcGISHttpClientHandler.HttpRequestBegin += ArcGISHttpClientHandler_HttpRequestBegin;
+            await _mapView.SetViewpointAsync(viewpoint);
+        }
+
+        private void ArcGISHttpClientHandler_HttpRequestBegin(object sender, System.Net.Http.HttpRequestMessage e)
+        {
+            _tileCount++;
+        }
+    }
+
+
 }

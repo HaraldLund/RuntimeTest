@@ -62,6 +62,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ESRI.ArcGIS.Client">
+      <HintPath>..\..\Libraries\ESRI.ArcGIS.Client.dll</HintPath>
+    </Reference>
     <Reference Include="Esri.ArcGISRuntime, Version=100.4.0.0, Culture=neutral, PublicKeyToken=8fc3cc631e44ad86, processorArchitecture=MSIL">
       <HintPath>..\packages\Esri.ArcGISRuntime.WPF.100.4.0\lib\net461\Esri.ArcGISRuntime.dll</HintPath>
     </Reference>
@@ -89,8 +92,11 @@
     <Compile Include="..\Config.cs" />
     <Compile Include="..\RelayCommand.cs" />
     <Compile Include="..\TileRequestDetails.cs" />
-    <Compile Include="..\ZoomBehavior.cs" />
-	<Compile Include="..\ViewpointProvider.cs" />
+    <Compile Include="..\ViewpointProvider.cs" />
+	<Compile Include="..\LegacyMapLoader.cs" />
+	<Compile Include="..\LegacyZoomProvider.cs">
+      <Link>LegacyZoomProvider.cs</Link>
+    </Compile>
     <Page Include="..\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
