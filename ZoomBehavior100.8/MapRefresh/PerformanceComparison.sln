@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runtime100.4", "ZoomBehavior100.8\MapRefresh\Runtime100.4\Runtime100.4.csproj", "{703C5C8D-BE1C-4413-8046-EB9787B8C363}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runtime100.4", "Runtime100.4\Runtime100.4.csproj", "{703C5C8D-BE1C-4413-8046-EB9787B8C363}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runtime100.7", "ZoomBehavior100.8\MapRefresh\Runtime100.7\Runtime100.7.csproj", "{2ED49E46-8D9A-4AE5-848C-09E02C6F9E1D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runtime100.7", "Runtime100.7\Runtime100.7.csproj", "{2ED49E46-8D9A-4AE5-848C-09E02C6F9E1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runtime100.8", "ZoomBehavior100.8\MapRefresh\Runtime100.8\Runtime100.8.csproj", "{4983A37F-2856-4328-94BE-80493097D93A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runtime100.8", "Runtime100.8\Runtime100.8.csproj", "{4983A37F-2856-4328-94BE-80493097D93A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
