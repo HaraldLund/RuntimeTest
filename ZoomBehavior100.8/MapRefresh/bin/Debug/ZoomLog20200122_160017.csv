@@ -1,0 +1,251 @@
+100.8.0.0
+Zoom Extent; Number; 0;
+266437, 6651261;266437, 6653668;258133, 6651261;258133, 6653668
+Zoom Duration Seconds;;;
+1;;;
+Level;Layer;Tiles;Total Tiles
+2;GeocacheBasis;24;24
+3;GeocacheBasis;31;31
+9;GeocacheBasis;4;4
+10;GeocacheBasis;16;16
+11;GeocacheBasis;42;42
+Sum tiles between LoD 2 -> 11:;;;117
+Duration drawing:;;;00:00:02.480325
+
+Zoom Extent; Number; 1;
+223062, 6635196;223062, 6673404;283568, 6635196;283568, 6673404
+Zoom Duration Seconds;;;
+2;;;
+Level;Layer;Tiles;Total Tiles
+6;GeocacheBasis;6;6
+7;GeocacheBasis;12;12
+8;GeocacheBasis;42;42
+9;GeocacheBasis;44;44
+10;GeocacheBasis;8;8
+Sum tiles between LoD 6 -> 10:;;;112
+Duration drawing:;;;00:00:02.789563
+
+Zoom Extent; Number; 2;
+261914, 6649447;261914, 6649769;262406, 6649769;262406, 6649447
+Zoom Duration Seconds;;;
+3;;;
+Level;Layer;Tiles;Total Tiles
+9;GeocacheBasis;24;24
+10;GeocacheBasis;30;30
+12;GeocacheBasis;32;32
+13;GeocacheBasis;32;32
+14;GeocacheBasis;29;29
+15;GeocacheBasis;37;37
+Sum tiles between LoD 9 -> 15:;;;184
+Duration drawing:;;;00:00:04.099133
+
+Zoom Extent; Number; 3;
+261813, 6645050;261813, 6654888;277532, 6654888;277532, 6645050
+Zoom Duration Seconds;;;
+1;;;
+Level;Layer;Tiles;Total Tiles
+10;GeocacheBasis;16;16
+11;GeocacheBasis;14;14
+Sum tiles between LoD 10 -> 11:;;;30
+Duration drawing:;;;00:00:01.094171
+
+Zoom Extent; Number; 4;
+265410, 6648252;265410, 6648862;266462, 6648862;266462, 6648252
+Zoom Duration Seconds;;;
+1;;;
+Level;Layer;Tiles;Total Tiles
+11;GeocacheBasis;12;12
+12;GeocacheBasis;4;4
+13;GeocacheBasis;15;15
+14;GeocacheBasis;36;36
+Sum tiles between LoD 11 -> 14:;;;67
+Duration drawing:;;;00:00:02.887694
+
+Zoom Extent; Number; 0;
+266437, 6651261;266437, 6653668;258133, 6651261;258133, 6653668
+Zoom Duration Seconds;;;
+1;;;
+Level;Layer;Tiles;Total Tiles
+12;GeocacheBasis;16;16
+Sum tiles between LoD 12 -> 12:;;;16
+Duration drawing:;;;00:00:01.094637
+
+Zoom Extent; Number; 1;
+223062, 6635196;223062, 6673404;283568, 6635196;283568, 6673404
+Zoom Duration Seconds;;;
+2;;;
+Level;Layer;Tiles;Total Tiles
+9;GeocacheBasis;3;3
+Sum tiles between LoD 9 -> 9:;;;3
+Duration drawing:;;;00:00:02.098908
+
+Zoom Extent; Number; 2;
+261914, 6649447;261914, 6649769;262406, 6649769;262406, 6649447
+Zoom Duration Seconds;;;
+3;;;
+Level;Layer;Tiles;Total Tiles
+9;GeocacheBasis;3;3
+11;GeocacheBasis;8;8
+13;GeocacheBasis;25;25
+Sum tiles between LoD 9 -> 13:;;;36
+Duration drawing:;;;00:00:03.284581
+
+Zoom Extent; Number; 3;
+261813, 6645050;261813, 6654888;277532, 6654888;277532, 6645050
+Zoom Duration Seconds;;;
+1;;;
+Level;Layer;Tiles;Total Tiles
+Missing Tile Information
+Duration drawing:;;;00:00:01.114772
+
+Zoom Extent; Number; 4;
+265410, 6648252;265410, 6648862;266462, 6648862;266462, 6648252
+Zoom Duration Seconds;;;
+1;;;
+Level;Layer;Tiles;Total Tiles
+11;GeocacheBasis;5;5
+12;GeocacheBasis;18;18
+13;GeocacheBasis;22;22
+Sum tiles between LoD 11 -> 13:;;;45
+Duration drawing:;;;00:00:03.751694
+
+Zoom Extent; Number; 0;
+266437, 6651261;266437, 6653668;258133, 6651261;258133, 6653668
+Zoom Duration Seconds;;;
+1;;;
+Level;Layer;Tiles;Total Tiles
+12;GeocacheBasis;5;5
+Sum tiles between LoD 12 -> 12:;;;5
+Duration drawing:;;;00:00:01.072308
+
+Zoom Extent; Number; 1;
+223062, 6635196;223062, 6673404;283568, 6635196;283568, 6673404
+Zoom Duration Seconds;;;
+2;;;
+Level;Layer;Tiles;Total Tiles
+Missing Tile Information
+Duration drawing:;;;00:00:02.051607
+
+Zoom Extent; Number; 2;
+261914, 6649447;261914, 6649769;262406, 6649769;262406, 6649447
+Zoom Duration Seconds;;;
+3;;;
+Level;Layer;Tiles;Total Tiles
+9;GeocacheBasis;1;1
+11;GeocacheBasis;1;1
+12;GeocacheBasis;1;1
+14;GeocacheBasis;1;1
+15;GeocacheBasis;4;4
+Sum tiles between LoD 9 -> 15:;;;8
+Duration drawing:;;;00:00:03.150668
+
+Zoom Extent; Number; 3;
+261813, 6645050;261813, 6654888;277532, 6654888;277532, 6645050
+Zoom Duration Seconds;;;
+1;;;
+Level;Layer;Tiles;Total Tiles
+Missing Tile Information
+Duration drawing:;;;00:00:01.112401
+
+Zoom Extent; Number; 4;
+265410, 6648252;265410, 6648862;266462, 6648862;266462, 6648252
+Zoom Duration Seconds;;;
+1;;;
+Level;Layer;Tiles;Total Tiles
+11;GeocacheBasis;5;5
+12;GeocacheBasis;20;20
+13;GeocacheBasis;26;26
+Sum tiles between LoD 11 -> 13:;;;51
+Duration drawing:;;;00:00:03.145794
+
+Zoom Extent; Number; 0;
+266437, 6651261;266437, 6653668;258133, 6651261;258133, 6653668
+Zoom Duration Seconds;;;
+1;;;
+Level;Layer;Tiles;Total Tiles
+12;GeocacheBasis;2;2
+Sum tiles between LoD 12 -> 12:;;;2
+Duration drawing:;;;00:00:01.074960
+
+Zoom Extent; Number; 1;
+223062, 6635196;223062, 6673404;283568, 6635196;283568, 6673404
+Zoom Duration Seconds;;;
+2;;;
+Level;Layer;Tiles;Total Tiles
+Missing Tile Information
+Duration drawing:;;;00:00:02.131216
+
+Zoom Extent; Number; 2;
+261914, 6649447;261914, 6649769;262406, 6649769;262406, 6649447
+Zoom Duration Seconds;;;
+3;;;
+Level;Layer;Tiles;Total Tiles
+11;GeocacheBasis;1;1
+13;GeocacheBasis;15;15
+Sum tiles between LoD 11 -> 13:;;;16
+Duration drawing:;;;00:00:03.276787
+
+Zoom Extent; Number; 3;
+261813, 6645050;261813, 6654888;277532, 6654888;277532, 6645050
+Zoom Duration Seconds;;;
+1;;;
+Level;Layer;Tiles;Total Tiles
+Missing Tile Information
+Duration drawing:;;;00:00:01.106160
+
+Zoom Extent; Number; 4;
+265410, 6648252;265410, 6648862;266462, 6648862;266462, 6648252
+Zoom Duration Seconds;;;
+1;;;
+Level;Layer;Tiles;Total Tiles
+11;GeocacheBasis;4;4
+12;GeocacheBasis;18;18
+13;GeocacheBasis;25;25
+Sum tiles between LoD 11 -> 13:;;;47
+Duration drawing:;;;00:00:02.405224
+
+Zoom Extent; Number; 0;
+266437, 6651261;266437, 6653668;258133, 6651261;258133, 6653668
+Zoom Duration Seconds;;;
+1;;;
+Level;Layer;Tiles;Total Tiles
+Missing Tile Information
+Duration drawing:;;;00:00:01.170738
+
+Zoom Extent; Number; 1;
+223062, 6635196;223062, 6673404;283568, 6635196;283568, 6673404
+Zoom Duration Seconds;;;
+2;;;
+Level;Layer;Tiles;Total Tiles
+10;GeocacheBasis;7;7
+Sum tiles between LoD 10 -> 10:;;;7
+Duration drawing:;;;00:00:02.097800
+
+Zoom Extent; Number; 2;
+261914, 6649447;261914, 6649769;262406, 6649769;262406, 6649447
+Zoom Duration Seconds;;;
+3;;;
+Level;Layer;Tiles;Total Tiles
+15;GeocacheBasis;6;6
+Sum tiles between LoD 15 -> 15:;;;6
+Duration drawing:;;;00:00:03.184099
+
+Zoom Extent; Number; 3;
+261813, 6645050;261813, 6654888;277532, 6654888;277532, 6645050
+Zoom Duration Seconds;;;
+1;;;
+Level;Layer;Tiles;Total Tiles
+Missing Tile Information
+Duration drawing:;;;00:00:01.098392
+
+Zoom Extent; Number; 4;
+265410, 6648252;265410, 6648862;266462, 6648862;266462, 6648252
+Zoom Duration Seconds;;;
+1;;;
+Level;Layer;Tiles;Total Tiles
+12;GeocacheBasis;16;16
+13;GeocacheBasis;4;4
+14;GeocacheBasis;18;18
+Sum tiles between LoD 12 -> 14:;;;38
+Duration drawing:;;;00:00:01.868457
+

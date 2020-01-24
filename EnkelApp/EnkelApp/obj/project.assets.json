@@ -1,0 +1,1003 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETFramework,Version=v4.8": {
+      "Esri.ArcGISRuntime.WPF/100.8.0-daily2663": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Drawing",
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net461/Esri.ArcGISRuntime.dll": {}
+        },
+        "runtime": {
+          "lib/net461/Esri.ArcGISRuntime.dll": {}
+        },
+        "resource": {
+          "lib/net461/ar/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ar"
+          },
+          "lib/net461/bs/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "bs"
+          },
+          "lib/net461/ca/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ca"
+          },
+          "lib/net461/cs/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net461/da/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "da"
+          },
+          "lib/net461/de/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net461/el/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "el"
+          },
+          "lib/net461/es/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net461/et/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "et"
+          },
+          "lib/net461/fi/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "fi"
+          },
+          "lib/net461/fr/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net461/he/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "he"
+          },
+          "lib/net461/hi/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "hi"
+          },
+          "lib/net461/hr/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "hr"
+          },
+          "lib/net461/hu/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "hu"
+          },
+          "lib/net461/id/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "id"
+          },
+          "lib/net461/it/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net461/ja/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net461/ko/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net461/lt/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "lt"
+          },
+          "lib/net461/lv/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "lv"
+          },
+          "lib/net461/nb-NO/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "nb-NO"
+          },
+          "lib/net461/nl/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "nl"
+          },
+          "lib/net461/no/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "no"
+          },
+          "lib/net461/pl/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net461/pt-BR/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net461/pt-PT/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "pt-PT"
+          },
+          "lib/net461/ro/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ro"
+          },
+          "lib/net461/ru/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net461/sl/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "sl"
+          },
+          "lib/net461/sr/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "sr"
+          },
+          "lib/net461/sv/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "sv"
+          },
+          "lib/net461/th/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "th"
+          },
+          "lib/net461/tr/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net461/uk/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "uk"
+          },
+          "lib/net461/vi/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "vi"
+          },
+          "lib/net461/zh-CN/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "zh-CN"
+          },
+          "lib/net461/zh-HK/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "zh-HK"
+          },
+          "lib/net461/zh-Hans/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net461/zh-TW/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "zh-TW"
+          }
+        },
+        "build": {
+          "build/net461/Esri.ArcGISRuntime.WPF.targets": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win-x64/native/RuntimeCoreNet.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/runtimecore.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x86/native/RuntimeCoreNet.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          },
+          "runtimes/win-x86/native/runtimecore.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          }
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win": {
+      "Esri.ArcGISRuntime.WPF/100.8.0-daily2663": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Drawing",
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net461/Esri.ArcGISRuntime.dll": {}
+        },
+        "runtime": {
+          "lib/net461/Esri.ArcGISRuntime.dll": {}
+        },
+        "resource": {
+          "lib/net461/ar/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ar"
+          },
+          "lib/net461/bs/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "bs"
+          },
+          "lib/net461/ca/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ca"
+          },
+          "lib/net461/cs/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net461/da/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "da"
+          },
+          "lib/net461/de/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net461/el/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "el"
+          },
+          "lib/net461/es/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net461/et/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "et"
+          },
+          "lib/net461/fi/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "fi"
+          },
+          "lib/net461/fr/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net461/he/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "he"
+          },
+          "lib/net461/hi/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "hi"
+          },
+          "lib/net461/hr/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "hr"
+          },
+          "lib/net461/hu/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "hu"
+          },
+          "lib/net461/id/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "id"
+          },
+          "lib/net461/it/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net461/ja/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net461/ko/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net461/lt/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "lt"
+          },
+          "lib/net461/lv/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "lv"
+          },
+          "lib/net461/nb-NO/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "nb-NO"
+          },
+          "lib/net461/nl/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "nl"
+          },
+          "lib/net461/no/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "no"
+          },
+          "lib/net461/pl/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net461/pt-BR/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net461/pt-PT/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "pt-PT"
+          },
+          "lib/net461/ro/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ro"
+          },
+          "lib/net461/ru/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net461/sl/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "sl"
+          },
+          "lib/net461/sr/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "sr"
+          },
+          "lib/net461/sv/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "sv"
+          },
+          "lib/net461/th/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "th"
+          },
+          "lib/net461/tr/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net461/uk/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "uk"
+          },
+          "lib/net461/vi/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "vi"
+          },
+          "lib/net461/zh-CN/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "zh-CN"
+          },
+          "lib/net461/zh-HK/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "zh-HK"
+          },
+          "lib/net461/zh-Hans/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net461/zh-TW/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "zh-TW"
+          }
+        },
+        "build": {
+          "build/net461/Esri.ArcGISRuntime.WPF.targets": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win-x64": {
+      "Esri.ArcGISRuntime.WPF/100.8.0-daily2663": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Drawing",
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net461/Esri.ArcGISRuntime.dll": {}
+        },
+        "runtime": {
+          "lib/net461/Esri.ArcGISRuntime.dll": {}
+        },
+        "resource": {
+          "lib/net461/ar/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ar"
+          },
+          "lib/net461/bs/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "bs"
+          },
+          "lib/net461/ca/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ca"
+          },
+          "lib/net461/cs/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net461/da/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "da"
+          },
+          "lib/net461/de/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net461/el/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "el"
+          },
+          "lib/net461/es/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net461/et/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "et"
+          },
+          "lib/net461/fi/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "fi"
+          },
+          "lib/net461/fr/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net461/he/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "he"
+          },
+          "lib/net461/hi/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "hi"
+          },
+          "lib/net461/hr/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "hr"
+          },
+          "lib/net461/hu/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "hu"
+          },
+          "lib/net461/id/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "id"
+          },
+          "lib/net461/it/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net461/ja/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net461/ko/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net461/lt/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "lt"
+          },
+          "lib/net461/lv/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "lv"
+          },
+          "lib/net461/nb-NO/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "nb-NO"
+          },
+          "lib/net461/nl/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "nl"
+          },
+          "lib/net461/no/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "no"
+          },
+          "lib/net461/pl/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net461/pt-BR/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net461/pt-PT/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "pt-PT"
+          },
+          "lib/net461/ro/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ro"
+          },
+          "lib/net461/ru/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net461/sl/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "sl"
+          },
+          "lib/net461/sr/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "sr"
+          },
+          "lib/net461/sv/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "sv"
+          },
+          "lib/net461/th/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "th"
+          },
+          "lib/net461/tr/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net461/uk/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "uk"
+          },
+          "lib/net461/vi/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "vi"
+          },
+          "lib/net461/zh-CN/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "zh-CN"
+          },
+          "lib/net461/zh-HK/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "zh-HK"
+          },
+          "lib/net461/zh-Hans/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net461/zh-TW/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "zh-TW"
+          }
+        },
+        "native": {
+          "runtimes/win-x64/native/RuntimeCoreNet.dll": {},
+          "runtimes/win-x64/native/runtimecore.dll": {}
+        },
+        "build": {
+          "build/net461/Esri.ArcGISRuntime.WPF.targets": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.8/win-x86": {
+      "Esri.ArcGISRuntime.WPF/100.8.0-daily2663": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Drawing",
+          "System.Net.Http"
+        ],
+        "compile": {
+          "lib/net461/Esri.ArcGISRuntime.dll": {}
+        },
+        "runtime": {
+          "lib/net461/Esri.ArcGISRuntime.dll": {}
+        },
+        "resource": {
+          "lib/net461/ar/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ar"
+          },
+          "lib/net461/bs/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "bs"
+          },
+          "lib/net461/ca/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ca"
+          },
+          "lib/net461/cs/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net461/da/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "da"
+          },
+          "lib/net461/de/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net461/el/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "el"
+          },
+          "lib/net461/es/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net461/et/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "et"
+          },
+          "lib/net461/fi/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "fi"
+          },
+          "lib/net461/fr/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net461/he/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "he"
+          },
+          "lib/net461/hi/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "hi"
+          },
+          "lib/net461/hr/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "hr"
+          },
+          "lib/net461/hu/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "hu"
+          },
+          "lib/net461/id/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "id"
+          },
+          "lib/net461/it/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net461/ja/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net461/ko/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net461/lt/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "lt"
+          },
+          "lib/net461/lv/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "lv"
+          },
+          "lib/net461/nb-NO/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "nb-NO"
+          },
+          "lib/net461/nl/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "nl"
+          },
+          "lib/net461/no/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "no"
+          },
+          "lib/net461/pl/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net461/pt-BR/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net461/pt-PT/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "pt-PT"
+          },
+          "lib/net461/ro/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ro"
+          },
+          "lib/net461/ru/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net461/sl/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "sl"
+          },
+          "lib/net461/sr/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "sr"
+          },
+          "lib/net461/sv/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "sv"
+          },
+          "lib/net461/th/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "th"
+          },
+          "lib/net461/tr/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net461/uk/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "uk"
+          },
+          "lib/net461/vi/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "vi"
+          },
+          "lib/net461/zh-CN/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "zh-CN"
+          },
+          "lib/net461/zh-HK/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "zh-HK"
+          },
+          "lib/net461/zh-Hans/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net461/zh-TW/Esri.ArcGISRuntime.resources.dll": {
+            "locale": "zh-TW"
+          }
+        },
+        "native": {
+          "runtimes/win-x86/native/RuntimeCoreNet.dll": {},
+          "runtimes/win-x86/native/runtimecore.dll": {}
+        },
+        "build": {
+          "build/net461/Esri.ArcGISRuntime.WPF.targets": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Esri.ArcGISRuntime.WPF/100.8.0-daily2663": {
+      "sha512": "6z3LWtFRs9H0KA+D3TTcbvgZD15Nw+66wHx+LwVF3a8dnI0MKdpu2q+PDpp9HmL/MFEAnDI7QnVf3+GhebRqbg==",
+      "type": "package",
+      "path": "esri.arcgisruntime.wpf/100.8.0-daily2663",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        "build/net461/Esri.ArcGISRuntime.WPF.targets",
+        "build/netcoreapp3.1/Esri.ArcGISRuntime.WPF.targets",
+        "buildTransitive/net461/Esri.ArcGISRuntime.WPF.targets",
+        "buildTransitive/netcoreapp3.1/Esri.ArcGISRuntime.WPF.targets",
+        "esri.arcgisruntime.wpf.100.8.0-daily2663.nupkg.sha512",
+        "esri.arcgisruntime.wpf.nuspec",
+        "icon.png",
+        "legal/Copyright_and_Trademarks.pdf",
+        "legal/EULA.txt",
+        "legal/open-source-acknowledgements.pdf",
+        "lib/net461/Design/Esri.ArcGISRuntime.Design.dll",
+        "lib/net461/Esri.ArcGISRuntime.dll",
+        "lib/net461/Esri.ArcGISRuntime.xml",
+        "lib/net461/ar/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/bs/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/ca/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/cs/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/da/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/de/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/el/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/es/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/et/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/fi/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/fr/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/he/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/hi/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/hr/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/hu/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/id/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/it/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/ja/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/ko/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/lt/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/lv/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/nb-NO/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/nl/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/no/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/pl/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/pt-BR/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/pt-PT/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/ro/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/ru/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/sl/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/sr/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/sv/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/th/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/tr/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/uk/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/vi/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/zh-CN/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/zh-HK/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/zh-Hans/Esri.ArcGISRuntime.resources.dll",
+        "lib/net461/zh-TW/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/Esri.ArcGISRuntime.dll",
+        "lib/netcoreapp3.1/Esri.ArcGISRuntime.xml",
+        "lib/netcoreapp3.1/ar/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/bs/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/ca/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/cs/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/da/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/de/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/el/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/es/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/et/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/fi/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/fr/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/he/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/hi/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/hr/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/hu/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/id/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/it/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/ja/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/ko/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/lt/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/lv/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/nb-NO/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/nl/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/no/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/pl/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/pt-BR/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/pt-PT/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/ro/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/ru/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/sl/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/sr/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/sv/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/th/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/tr/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/uk/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/vi/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/zh-CN/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/zh-HK/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/zh-Hans/Esri.ArcGISRuntime.resources.dll",
+        "lib/netcoreapp3.1/zh-TW/Esri.ArcGISRuntime.resources.dll",
+        "resources/arcgisruntime100.8/resources/shaders/atmosphere_accurate_3d_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/atmosphere_accurate_3d_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/atmosphere_accurate_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/atmosphere_accurate_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/atmosphere_textured_3d_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/atmosphere_textured_3d_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/atmosphere_textured_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/atmosphere_textured_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/basic_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/basic_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/basic_usage_3d_depth_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/color_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/color_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/full_screen_quad_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/magnifier_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/magnifier_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/magnifier_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/magnifier_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/measure_line_depth_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/measure_line_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/measure_line_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/measure_line_world_depth_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/measure_line_world_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/measure_line_world_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/measure_line_world_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/modelline_3d_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/modelline_3d_normal_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/modelline_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/modelline_world_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/offscreen_buffer_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/offscreen_buffer_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_3d_billboard_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_3d_billboard_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_3d_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_3d_overlay_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_3d_overlay_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_billboard_depth_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_billboard_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_billboard_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_billboard_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_billboard_sdf_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_billboard_sdf_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_cloud_3d_depth_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_cloud_3d_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_cloud_3d_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_cloud_3d_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_cloud_depth_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_cloud_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_cloud_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_cloud_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_cloud_mod_depth_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_cloud_mod_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_cloud_mod_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_cloud_mod_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_cloud_mod_no_rgb_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_cloud_mod_no_rgb_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_cloud_no_rgb_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_cloud_no_rgb_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_cloud_obb_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_cloud_obb_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_overlay_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/point_overlay_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polygon_3d_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polygon_3d_normal_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polygon_3d_overlay_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polygon_3d_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polygon_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polygon_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polygon_outline_3d_overlay_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polygon_outline_3d_overlay_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polygon_outline_overlay_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polygon_outline_overlay_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polygon_overlay_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polygon_overlay_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polygon_world_depth_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polygon_world_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polyline_3d_depth_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polyline_3d_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polyline_3d_normal_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polyline_3d_overlay_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polyline_3d_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polyline_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polyline_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polyline_overlay_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polyline_world_depth_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/polyline_world_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/post_process_quad_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/post_process_viewshed_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/re_basic_texture_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/re_dilate_reduce_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/re_gauss_blur_13x13_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/re_gauss_blur_17x17_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/re_gauss_blur_5x5_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/re_gauss_blur_9x9_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/re_selection_finalize_mask_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/re_selection_finalize_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/re_tex_image_modify_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/re_texture_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/re_texture_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/screen_overlay_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/screen_overlay_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/sequence_area_line_normal_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/sequence_area_line_normal_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/sequence_area_line_pick_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/sequence_area_line_pick_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/sequence_dynamic_marker_normal_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/sequence_dynamic_marker_normal_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/sequence_dynamic_marker_pick_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/sequence_dynamic_marker_pick_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/sequence_point_normal_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/sequence_point_normal_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/sequence_point_pick_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/sequence_point_pick_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/sequence_point_sdf_normal_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/sequence_point_sdf_normal_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/sequence_point_sdf_pick_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/sequence_point_sdf_pick_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/star_3d_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/star_3d_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/star_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/star_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/text_3d_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/text_3d_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/text_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/text_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/texture_draw_instanced_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/texture_draw_instanced_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/texture_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/texture_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_3d_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_3d_draped_graphics_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_3d_draped_graphics_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_3d_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_3d_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_3d_ground_overlay_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_3d_ground_overlay_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_atmosphere_modifiers_phong_world_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_atmosphere_phong_world_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_atmosphere_phong_world_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_atmosphere_phongshadow_world_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_atmosphere_phongshadow_world_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_draped_graphics_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_draped_graphics_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_ground_overlay_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_ground_overlay_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_modifiers_phong_world_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_phong_world_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_phong_world_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_phongshadow_world_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_phongshadow_world_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_world_depth_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/tile_world_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_3d_depth_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_3d_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_3d_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_3d_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_color_phong_world_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_color_phong_world_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_color_phong_world_instance_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_color_phongshadow_world_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_color_phongshadow_world_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_color_phongshadow_world_instance_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_non_instanced_3d_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_non_instanced_3d_normal_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_texture_phong_world_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_texture_phong_world_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_texture_phong_world_instance_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_texture_phongshadow_world_draw_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_texture_phongshadow_world_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_texture_phongshadow_world_instance_draw_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_texture_world_depth_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_texture_world_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_texture_world_instance_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_world_depth_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_world_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/trianglemesh_world_instance_depth_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_background_pattern_fill_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_background_pattern_fill_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_background_solid_fill_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_background_solid_fill_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_circle_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_circle_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_dd_marker_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_dd_marker_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_dd_outline_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_dd_outline_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_dd_pattern_fill_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_dd_pattern_fill_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_dd_pattern_line_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_dd_pattern_line_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_dd_sdf_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_dd_sdf_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_dd_solid_fill_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_dd_solid_fill_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_dd_solid_line_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_dd_solid_line_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_fill_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_fill_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_line_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_line_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_marker_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_marker_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_outline_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_outline_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_pattern_fill_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_pattern_fill_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_pattern_line_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_pattern_line_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_render_target_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_render_target_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_sdf_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_sdf_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_stencil_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_stencil_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_tile_info_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vector_tiles_tile_info_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/viewshed_post_process_3d_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_background_pattern_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_background_pattern_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_background_solid_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_background_solid_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_circle_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_circle_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_fill_outline_dd_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_fill_outline_dd_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_fill_outline_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_fill_outline_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_fill_pattern_dd_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_fill_pattern_dd_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_fill_pattern_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_fill_pattern_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_fill_solid_dd_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_fill_solid_dd_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_fill_solid_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_fill_solid_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_icon_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_icon_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_line_pattern_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_line_pattern_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_line_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_line_vs.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_sdf_ps.cso",
+        "resources/arcgisruntime100.8/resources/shaders/vt_sdf_vs.cso",
+        "runtimes/win-x64/native/RuntimeCoreNet.dll",
+        "runtimes/win-x64/native/runtimecore.dll",
+        "runtimes/win-x86/native/RuntimeCoreNet.dll",
+        "runtimes/win-x86/native/runtimecore.dll",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETFramework,Version=v4.8": [
+      "Esri.ArcGISRuntime.WPF >= 100.8.0-daily2663"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\lund\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\lund\\Documents\\Utvikling\\Support\\EnkelApp\\EnkelApp\\EnkelApp.csproj",
+      "projectName": "EnkelApp",
+      "projectPath": "C:\\Users\\lund\\Documents\\Utvikling\\Support\\EnkelApp\\EnkelApp\\EnkelApp.csproj",
+      "packagesPath": "C:\\Users\\lund\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\lund\\Documents\\Utvikling\\Support\\EnkelApp\\EnkelApp\\obj\\",
+      "projectStyle": "PackageReference",
+      "skipContentFileWrite": true,
+      "configFilePaths": [
+        "C:\\Users\\lund\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net48"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Users\\lund\\AppData\\Local\\Esri\\NuGet": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net48": {
+          "projectReferences": {}
+        }
+      }
+    },
+    "frameworks": {
+      "net48": {
+        "dependencies": {
+          "Esri.ArcGISRuntime.WPF": {
+            "target": "Package",
+            "version": "[100.8.0-daily2663, )"
+          }
+        }
+      }
+    },
+    "runtimes": {
+      "win": {
+        "#import": []
+      },
+      "win-x64": {
+        "#import": []
+      },
+      "win-x86": {
+        "#import": []
+      }
+    }
+  }
+}

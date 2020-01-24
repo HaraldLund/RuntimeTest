@@ -1,0 +1,11 @@
+Zoom Extent; Number; 1;
+223062, 6635196;223062, 6673404;283568, 6635196;283568, 6673404
+Zoom Duration Seconds;;;
+0;;;
+Level;Layer;Tiles;Total Tiles
+9;GeocacheBasis;4;4
+10;GeocacheBasis;16;16
+11;GeocacheBasis;39;39
+Sum tiles between LoD 9 -> 11:;;;59
+Duration drawing:;;;00:00:00.388958
+
