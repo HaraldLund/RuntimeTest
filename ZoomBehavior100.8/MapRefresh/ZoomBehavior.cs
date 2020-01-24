@@ -41,7 +41,7 @@ namespace MapRefresh
             }
         }
 
-        public static readonly DependencyProperty IsEnabledProperty = DependencyProperty.Register("IsEnabled", typeof(bool), typeof(ZoomBehavior), new FrameworkPropertyMetadata(true));
+        public static readonly DependencyProperty IsEnabledProperty = DependencyProperty.Register("IsEnabled", typeof(bool), typeof(ZoomBehavior), new FrameworkPropertyMetadata(false));
         public bool IsEnabled
         {
             get

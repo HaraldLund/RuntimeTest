@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -34,13 +33,12 @@ namespace MapRefresh
         private Map _map = new Map();
         private bool _ZoomingTriggered = false;
         private int _ZoomIntervall = 0;
-        private List<Polygon> _ZoomAreas = new List<Polygon>();
         private  DateTime _startTime;
         private int _repeats = 5;
-        private  int _current = 1;
+        private  int _currentRepeat = 1;
         private List<int> _seconds = new List<int>();
         private string _File;
-
+        private readonly ViewpointProvider _viewpointProvider;
 
         #endregion
 
@@ -59,7 +57,7 @@ namespace MapRefresh
             _map.Basemap = new Basemap(imageryTiledLayer);
             MyMapView.Map = _map;
             MyMapView.DrawStatusChanged += MyMapView_DrawStatusChanged;
-            BuildZoomAreas();
+            _viewpointProvider = new ViewpointProvider();
         }
 
 
@@ -78,7 +76,7 @@ namespace MapRefresh
             {
                 if (_ZoomingTriggered)
                 {
-                    doZooming(_ZoomIntervall);
+                    doZooming();
                 }
             }
         }
@@ -131,13 +129,13 @@ namespace MapRefresh
             else
                 builder.AppendLine(
                 $"{tileRequestDetails.Sum(m => m.Tiles)} tiles between LoD {tileRequestDetails.Min(m => m.Level)} -> {tileRequestDetails.Max(m => m.Level)}");
-            if (_ZoomIntervall < _ZoomAreas.Count)
+            if (_ZoomIntervall < _viewpointProvider.Count)
             {
                 csvfile.AppendLine($"Zoom Extent; Number; {_ZoomIntervall.ToString()};");
                 builder.AppendLine($"Zoom Extent; Number; {_ZoomIntervall.ToString()};");
-                csvfile.AppendLine($"{_ZoomAreas[_ZoomIntervall].Parts[0].Points[0].X.ToString()}, {_ZoomAreas[_ZoomIntervall].Parts[0].Points[0].Y.ToString()};{_ZoomAreas[_ZoomIntervall].Parts[0].Points[1].X.ToString()}, {_ZoomAreas[_ZoomIntervall].Parts[0].Points[1].Y.ToString()};{_ZoomAreas[_ZoomIntervall].Parts[0].Points[2].X.ToString()}, {_ZoomAreas[_ZoomIntervall].Parts[0].Points[2].Y.ToString()};{_ZoomAreas[_ZoomIntervall].Parts[0].Points[3].X.ToString()}, {_ZoomAreas[_ZoomIntervall].Parts[0].Points[3].Y.ToString()}");
+                //csvfile.AppendLine($"{_viewpointProvider[_ZoomIntervall].Parts[0].Points[0].X.ToString()}, {_ZoomAreas[_ZoomIntervall].Parts[0].Points[0].Y.ToString()};{_ZoomAreas[_ZoomIntervall].Parts[0].Points[1].X.ToString()}, {_ZoomAreas[_ZoomIntervall].Parts[0].Points[1].Y.ToString()};{_ZoomAreas[_ZoomIntervall].Parts[0].Points[2].X.ToString()}, {_ZoomAreas[_ZoomIntervall].Parts[0].Points[2].Y.ToString()};{_ZoomAreas[_ZoomIntervall].Parts[0].Points[3].X.ToString()}, {_ZoomAreas[_ZoomIntervall].Parts[0].Points[3].Y.ToString()}");
                 csvfile.AppendLine($"Zoom Duration Seconds;;;");
-                csvfile.AppendLine($"{_seconds[_ZoomIntervall].ToString()};;;");
+                //csvfile.AppendLine($"{_seconds[_ZoomIntervall].ToString()};;;");
 
             }
 
@@ -159,7 +157,7 @@ namespace MapRefresh
 
             TimeSpan duration = endTime.Subtract(_startTime);
 
-            if (_ZoomingTriggered && _ZoomIntervall < _ZoomAreas.Count)
+            if (_ZoomingTriggered && _ZoomIntervall < _viewpointProvider.Count)
             {
                 if (tileRequestDetails.Count != 0)
                     csvfile.AppendLine($"Sum tiles between LoD {tileRequestDetails.Min(m => m.Level)} -> {tileRequestDetails.Max(m => m.Level)}:;;;{tileRequestDetails.Sum(m => m.Tiles)}");
@@ -212,9 +210,10 @@ namespace MapRefresh
             }
         }
 
-        public static readonly DependencyProperty IsZoomOverrideProperty = DependencyProperty.Register("IsZoomOverride", typeof(bool), typeof(MainWindow), new FrameworkPropertyMetadata(true));
+        public static readonly DependencyProperty IsZoomOverrideProperty = DependencyProperty.Register("IsZoomOverride", typeof(bool), typeof(MainWindow), new FrameworkPropertyMetadata(false));
         public static readonly DependencyProperty SummaryProperty = DependencyProperty.Register("Summary", typeof(string), typeof(MainWindow), new FrameworkPropertyMetadata(null));
         public static readonly DependencyProperty UseAnimationProperty = DependencyProperty.Register("UseAnimation", typeof(bool), typeof(MainWindow), new FrameworkPropertyMetadata(true));
+        
 
         public bool UseAnimation
         {
@@ -298,97 +297,13 @@ namespace MapRefresh
             return center;
         }
 
-
-
-        private void BuildZoomAreas()
+        private async void doWheelZoomSim(Viewpoint viewpoint)
         {
-            _ZoomAreas.Add(CreateZoomOsloPolygons());
-            _seconds.Add(1);
-            _ZoomAreas.Add(CreateZoomOutOsloPolygons());
-            _seconds.Add(2);
-            _ZoomAreas.Add(CreateZoomOutOsloCenterPolygons());
-            _seconds.Add(3);
-            _ZoomAreas.Add(CreateZoomOutOsloEastPolygons());
-            _seconds.Add(1);
-            _ZoomAreas.Add(CreateZoomInOsloCenterEastPolygons());
-            _seconds.Add(1);
-        }
-
-        private Polygon CreateZoomOsloPolygons()
-        {
-            List<MapPoint> lsPoints = new List<MapPoint>();
-            lsPoints.Add(new MapPoint(266437, 6651261, new SpatialReference(25833)));
-            lsPoints.Add(new MapPoint(266437, 6653668, new SpatialReference(25833)));
-            lsPoints.Add(new MapPoint(258133, 6651261, new SpatialReference(25833)));
-            lsPoints.Add(new MapPoint(258133, 6653668, new SpatialReference(25833)));
-
-            return new Polygon(lsPoints);
-
-        }
-
-        private Polygon CreateZoomOutOsloPolygons()
-        {
-            List<MapPoint> lsPoints = new List<MapPoint>();
-            lsPoints.Add(new MapPoint(223062, 6635196, new SpatialReference(25833)));
-            lsPoints.Add(new MapPoint(223062, 6673404, new SpatialReference(25833)));
-            lsPoints.Add(new MapPoint(283568, 6635196, new SpatialReference(25833)));
-            lsPoints.Add(new MapPoint(283568, 6673404, new SpatialReference(25833)));
-
-            return new Polygon(lsPoints);
-
-        }
-
-        private Polygon CreateZoomOutOsloCenterPolygons()
-        {
-            List<MapPoint> lsPoints = new List<MapPoint>();
-            lsPoints.Add(new MapPoint(261914, 6649447, new SpatialReference(25833)));
-            lsPoints.Add(new MapPoint(261914, 6649769, new SpatialReference(25833)));
-            lsPoints.Add(new MapPoint(262406, 6649769, new SpatialReference(25833)));
-            lsPoints.Add(new MapPoint(262406, 6649447, new SpatialReference(25833)));
-
-            return new Polygon(lsPoints);
-
-        }
-
-
-        private Polygon CreateZoomOutOsloEastPolygons()
-        {
-            List<MapPoint> lsPoints = new List<MapPoint>();
-            lsPoints.Add(new MapPoint(261813, 6645050, new SpatialReference(25833)));
-            lsPoints.Add(new MapPoint(261813, 6654888, new SpatialReference(25833)));
-            lsPoints.Add(new MapPoint(277532, 6654888, new SpatialReference(25833)));
-            lsPoints.Add(new MapPoint(277532, 6645050, new SpatialReference(25833)));
-
-            return new Polygon(lsPoints);
-
-        }
-
-        private Polygon CreateZoomInOsloCenterEastPolygons()
-        {
-            List<MapPoint> lsPoints = new List<MapPoint>();
-            lsPoints.Add(new MapPoint(265410, 6648252, new SpatialReference(25833)));
-            lsPoints.Add(new MapPoint(265410, 6648862, new SpatialReference(25833)));
-            lsPoints.Add(new MapPoint(266462, 6648862, new SpatialReference(25833)));
-            lsPoints.Add(new MapPoint(266462, 6648252, new SpatialReference(25833)));
-
-            return new Polygon(lsPoints);
-
-        }
-
-
-
-        private async void doWheelZoomSim(int area, int seconds = 3)
-        {
-            // Create a new Viewpoint using the specified geometry
-            Viewpoint viewpoint = new Viewpoint(_ZoomAreas[area]);
-
-
             try
             {
-
                 // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
                 _startTime = DateTime.Now;
-                await MyMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(seconds));
+                await MyMapView.SetViewpointAsync(viewpoint);
 
             }
             catch (Exception ex)
@@ -399,27 +314,31 @@ namespace MapRefresh
         }
 
 
-        private void doZooming(int interval)
+        private void doZooming()
         {
-            if (interval >= _ZoomAreas.Count && _current < _repeats)
+            var nextViewpoint = _viewpointProvider.GetNext();
+            if (nextViewpoint == null)
             {
-                _ZoomIntervall = 0;
-                interval = 0;
-                _current++;
-            }
-            if (interval >= _ZoomAreas.Count && _current >= _repeats)
-            {
-                _ZoomingTriggered = false;
-                DrawFinished -= new DrawFinishedHandler(OnDrawFinished);
-                MyMapView.SetViewpoint(
-                new Viewpoint(MyMapView.Map.AllLayers[0].FullExtent));                
-                return;
+                if (_currentRepeat < _repeats)
+                {
+                    _viewpointProvider.Reset();
+                    nextViewpoint = _viewpointProvider.GetNext();
+                    _currentRepeat++;
+                }
+                else
+                {
+                    _ZoomingTriggered = false;
+                    DrawFinished -= new DrawFinishedHandler(OnDrawFinished);
+                    MyMapView.SetViewpoint(
+                        new Viewpoint(MyMapView.Map.AllLayers[0].FullExtent));
+                    return;
+                }
             }
 
-            int delay = _seconds[interval];
+            int delay = 0; // TODO: get sleep from provider?
             if (delay == 0) delay++;
             //System.Threading.Thread.Sleep(delay * 2000);
-            Task.Run(() => doWheelZoomSim(interval, _seconds[interval])); 
+            Task.Run(() => doWheelZoomSim(nextViewpoint)); 
 
         }
 
@@ -445,16 +364,21 @@ namespace MapRefresh
             DrawFinished += new DrawFinishedHandler(OnDrawFinished);
             _ZoomingTriggered = true;
             _ZoomIntervall = 0;
-            _current = 1;
+            _currentRepeat = 1;
             _File = Path.Combine(AssemblyDirectory, $"ZoomLog{DateTime.Now.ToString("yyyyMMdd_HHmmss")}.csv");
             using (StreamWriter sw = File.AppendText(_File))
             {
                 sw.WriteLineAsync(Assembly.GetAssembly(typeof(Map)).GetName().Version.ToString());
             };
-           doZooming(_ZoomIntervall);
+            _viewpointProvider.Reset();
+            doZooming();
             //MyMapView.DrawStatusChanged -= MyMapView_DrawStatusChanged;
 
         }
 
+        private void buttonz_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
