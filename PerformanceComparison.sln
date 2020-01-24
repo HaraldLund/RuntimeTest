@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runtime100.4", "ZoomBehavior100.8\MapRefresh\Runtime100.4\Runtime100.4.csproj", "{703C5C8D-BE1C-4413-8046-EB9787B8C363}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runtime100.7", "ZoomBehavior100.8\MapRefresh\Runtime100.7\Runtime100.7.csproj", "{2ED49E46-8D9A-4AE5-848C-09E02C6F9E1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runtime100.8", "ZoomBehavior100.8\MapRefresh\Runtime100.8\Runtime100.8.csproj", "{4983A37F-2856-4328-94BE-80493097D93A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{703C5C8D-BE1C-4413-8046-EB9787B8C363}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{703C5C8D-BE1C-4413-8046-EB9787B8C363}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{703C5C8D-BE1C-4413-8046-EB9787B8C363}.Debug|x64.ActiveCfg = Debug|x64
+		{703C5C8D-BE1C-4413-8046-EB9787B8C363}.Debug|x64.Build.0 = Debug|x64
+		{703C5C8D-BE1C-4413-8046-EB9787B8C363}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{703C5C8D-BE1C-4413-8046-EB9787B8C363}.Release|Any CPU.Build.0 = Release|Any CPU
+		{703C5C8D-BE1C-4413-8046-EB9787B8C363}.Release|x64.ActiveCfg = Release|x64
+		{703C5C8D-BE1C-4413-8046-EB9787B8C363}.Release|x64.Build.0 = Release|x64
+		{2ED49E46-8D9A-4AE5-848C-09E02C6F9E1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ED49E46-8D9A-4AE5-848C-09E02C6F9E1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ED49E46-8D9A-4AE5-848C-09E02C6F9E1D}.Debug|x64.ActiveCfg = Debug|x64
+		{2ED49E46-8D9A-4AE5-848C-09E02C6F9E1D}.Debug|x64.Build.0 = Debug|x64
+		{2ED49E46-8D9A-4AE5-848C-09E02C6F9E1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ED49E46-8D9A-4AE5-848C-09E02C6F9E1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ED49E46-8D9A-4AE5-848C-09E02C6F9E1D}.Release|x64.ActiveCfg = Release|x64
+		{2ED49E46-8D9A-4AE5-848C-09E02C6F9E1D}.Release|x64.Build.0 = Release|x64
+		{4983A37F-2856-4328-94BE-80493097D93A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4983A37F-2856-4328-94BE-80493097D93A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4983A37F-2856-4328-94BE-80493097D93A}.Debug|x64.ActiveCfg = Debug|x64
+		{4983A37F-2856-4328-94BE-80493097D93A}.Debug|x64.Build.0 = Debug|x64
+		{4983A37F-2856-4328-94BE-80493097D93A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4983A37F-2856-4328-94BE-80493097D93A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4983A37F-2856-4328-94BE-80493097D93A}.Release|x64.ActiveCfg = Release|x64
+		{4983A37F-2856-4328-94BE-80493097D93A}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {342B25F9-B53E-41ED-B07D-E98DE7D11AF3}
+	EndGlobalSection
+EndGlobal
