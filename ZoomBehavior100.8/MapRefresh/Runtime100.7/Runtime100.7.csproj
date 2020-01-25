@@ -84,17 +84,23 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Validation, Version=2.4.0.0, Culture=neutral, PublicKeyToken=2fc06f0d701809a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Validation.2.4.15\lib\net45\Validation.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsInput, Version=1.0.4.0, Culture=neutral, PublicKeyToken=9b287f7dc5073cad, processorArchitecture=MSIL">
+      <HintPath>..\packages\InputSimulator.1.0.4.0\lib\net20\WindowsInput.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Config.cs" />
     <Compile Include="..\RelayCommand.cs" />
     <Compile Include="..\TileRequestDetails.cs" />
     <Compile Include="..\ViewpointProvider.cs" />
-	<Compile Include="..\LegacyMapLoader.cs" />
-	<Compile Include="..\LegacyZoomProvider.cs">
+    <Compile Include="..\LegacyMapLoader.cs" />
+    <Compile Include="..\LegacyZoomProvider.cs">
       <Link>LegacyZoomProvider.cs</Link>
     </Compile>
     <Page Include="..\MainWindow.xaml">

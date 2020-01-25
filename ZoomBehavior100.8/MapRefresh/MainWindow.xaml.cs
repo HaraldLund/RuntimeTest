@@ -8,10 +8,12 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using WindowsInput;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
@@ -23,7 +25,7 @@ namespace MapRefresh
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow
+    public partial class MainWindow : IMouseSim
     {
         #region Private members
         private ICommand _clearRequestsCommand;
@@ -61,15 +63,14 @@ namespace MapRefresh
             MyMapView.Map = _map;
             MyMapView.DrawStatusChanged += MyMapView_DrawStatusChanged;
             _viewpointProvider = new ViewpointProvider();
-            ZoomSimulator = new ZoomSimulator(_viewpointProvider, new ZoomProvider(MyMapView));
-            LegacyZoomSimulator = new ZoomSimulator(_viewpointProvider, new LegacyZoomProvider(LegacyMap));
+            ZoomSimulator = new ZoomSimulator(_viewpointProvider, new ZoomProvider(MyMapView), this);
+            LegacyZoomSimulator = new ZoomSimulator(_viewpointProvider, new LegacyZoomProvider(LegacyMap), this);
             _map.LoadStatusChanged += _map_LoadStatusChanged;
         }
+
         public static readonly DependencyProperty LegacyZoomSimulatorProperty = DependencyProperty.Register("LegacyZoomSimulator", typeof(ZoomSimulator), typeof(MainWindow), new FrameworkPropertyMetadata(null));
         public static readonly DependencyProperty ZoomSimulatorProperty = DependencyProperty.Register("ZoomSimulator", typeof(ZoomSimulator), typeof(MainWindow), new FrameworkPropertyMetadata(null));
         
-        
-
         private void _map_LoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
             if (sender is Map map && e.Status == Esri.ArcGISRuntime.LoadStatus.Loaded)
@@ -200,7 +201,7 @@ namespace MapRefresh
             {
                 return;
             }
-
+            
             var requestDetails = TileRequestDetails.Parse(e.RequestUri, _navigationId);
             UpdateCount(requestDetails);
             _temporaryRequestList.Enqueue($"{requestDetails.MapService} LoD {requestDetails.Level}");
@@ -223,8 +224,21 @@ namespace MapRefresh
 
         public static readonly DependencyProperty SummaryProperty = DependencyProperty.Register("Summary", typeof(string), typeof(MainWindow), new FrameworkPropertyMetadata(null));
         public static readonly DependencyProperty UseAnimationProperty = DependencyProperty.Register("UseAnimation", typeof(bool), typeof(MainWindow), new FrameworkPropertyMetadata(true));
+        public static readonly DependencyProperty UseWheelProperty = DependencyProperty.Register("UseWheel", typeof(bool), typeof(MainWindow), new FrameworkPropertyMetadata(false));
+        
+        
 
-
+        public bool UseWheel
+        {
+            get
+            {
+                return (bool)GetValue(UseWheelProperty);
+            }
+            set
+            {
+                SetValue(UseWheelProperty, value);
+            }
+        }
         public ZoomSimulator ZoomSimulator
         {
             // IMPORTANT: To maintain parity between setting a property in XAML and procedural code, do not touch the getter and setter inside this dependency property!
@@ -365,14 +379,125 @@ namespace MapRefresh
 
         private async void buttonz_Click(object sender, RoutedEventArgs e)
         {
-             await ZoomSimulator.Run();
+             await ZoomSimulator.RunZoomSimulation(UseWheel ? SimulationMode.Wheel : SimulationMode.SetView);
         }
 
         private async void StartSimulateLegacy(object sender, RoutedEventArgs e)
         {
-            await LegacyZoomSimulator.Run();
+            await LegacyZoomSimulator.RunZoomSimulation(UseWheel ? SimulationMode.Wheel : SimulationMode.SetView);
         }
+
+        protected override void OnPreviewMouseWheel(MouseWheelEventArgs e)
+        {
+            base.OnPreviewMouseWheel(e);
+            //Trace.WriteLine($"{e.Delta} {e.Source} {e.GetPosition(this)}");
+        }
+
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            base.OnKeyUp(e);
+            if(e.Key == Key.Space)
+            {
+                Trace.WriteLine(MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).ToJson());
+            }
+        }
+
+
+
+        #region Simulate wheel
+        [DllImport("User32.dll")]
+        private static extern bool SetCursorPos(int X, int Y);
+        private static void SetCursor(double x, double y)
+        {
+            // Left boundary
+            var xL = (int)App.Current.MainWindow.Left;
+            // Right boundary
+            var xR = xL + (int)App.Current.MainWindow.Width;
+            // Top boundary
+            var yT = (int)App.Current.MainWindow.Top;
+            // Bottom boundary
+            var yB = yT + (int)App.Current.MainWindow.Height;
+
+            x += xL;
+            y += yT;
+
+            if (x < xL)
+            {
+                x = xL;
+            }
+            else if (x > xR)
+            {
+                x = xR;
+            }
+
+            if (y < yT)
+            {
+                y = yT;
+            }
+            else if (y > yB)
+            {
+                y = yB;
+            }
+
+            SetCursorPos((int)x, (int)y);
+        }
+
+        private int _tickDelay = 30;
+
+        public async Task WheelZoomOut()
+        {
+            InputSimulator ss = new InputSimulator();
+            for (int i = 0; i < 9; i++)
+            {
+                // Perform 9 calls to emulate a full roll of the wheel
+                ss.Mouse//.MoveMouseTo(pos.X, pos.Y)
+                    .VerticalScroll(-1);
+                await Task.Delay(_tickDelay);
+            }
+        }
+        public async Task WheelZoomIn()
+        {
+            SetMouseInCenter();
+            InputSimulator ss = new InputSimulator();
+            for (int i = 0; i < 9; i++)
+            {
+
+                // Perform 9 calls to emulate a full roll of the wheel
+                ss.Mouse//.MoveMouseTo(pos.X, pos.Y)
+                    .VerticalScroll(1);
+                await Task.Delay(_tickDelay);
+            }
+        }
+
+        private void SetMouseInCenter()
+        {
+            FrameworkElement target = MyMapView;
+            if(!target.IsVisible)
+            {
+                target = LegacyMap;
+            }
+            if (!target.IsKeyboardFocused)
+            {
+                target.Focus();
+            }
+            var position = new Point(target.ActualWidth / 2d, MyMapView.ActualHeight / 2d);
+
+            var pos = target.TranslatePoint(position, this);
+            pos = this.PointToScreen(pos);
+            //Trace.WriteLine(pos);
+            SetCursor(pos.X, pos.Y);
+            //Trace.WriteLine(Mouse.GetPosition(this));
+        }
+
+        #endregion
     }
+
+    public interface IMouseSim
+    {
+        Task WheelZoomIn();
+        Task WheelZoomOut();
+    }
+
 
 
 
@@ -383,17 +508,18 @@ namespace MapRefresh
         private Visibility _isRunning = Visibility.Collapsed;
         private readonly ViewpointProvider _viewpointProvider;
         private readonly ZoomProviderBase _zoomProvider;
+        private readonly IMouseSim _mouseSimulator;
         private readonly Stopwatch _watch = new Stopwatch();
         private readonly string _logFile;
         #endregion
 
-        public ZoomSimulator(ViewpointProvider viewpointProvider, ZoomProviderBase zoomProvider)
+        public ZoomSimulator(ViewpointProvider viewpointProvider, ZoomProviderBase zoomProvider, IMouseSim mouseSimulator)
         {
             _viewpointProvider = viewpointProvider;
             _zoomProvider = zoomProvider;
+            _mouseSimulator = mouseSimulator;
             Items = new ObservableCollection<LevelDetails>();
             _logFile = Path.Combine(MainWindow.AssemblyDirectory, $"ZoomLog-{zoomProvider.RuntimeVersion}.csv");
-            LogToCsv("runtimeversion;duration;tilecount;scale;center");
         }
 
         public ObservableCollection<LevelDetails> Items { get; }
@@ -409,17 +535,18 @@ namespace MapRefresh
                 OnPropertyChanged();
             }
         }
-
-
-        public async Task Run()
+        private SimulationMode _currentMode;
+        public async Task RunZoomSimulation(SimulationMode mode)
         {
+            _currentMode = mode;
             Items.Clear();
             IsRunning = Visibility.Visible;
             _viewpointProvider.Reset();
-            await ExecuteZoom();
+            await ExecuteZoom(mode);
         }
 
-        private async Task<bool> ExecuteZoom()
+        private bool _zoomIn;
+        private async Task<bool> ExecuteZoom(SimulationMode mode)
         {
             // TODO: do multiple iterations?
             var viewpoint = _viewpointProvider.GetNext();
@@ -428,10 +555,42 @@ namespace MapRefresh
                 return false;
             }
 
-            await Task.Delay(100);
-            _zoomProvider.DrawFinished += _zoomProvider_DrawFinished;
-            _watch.Restart();
-            await _zoomProvider.ZoomTo(viewpoint);
+            await Task.Delay(500);
+            if (mode == SimulationMode.SetView)
+            {
+                _zoomProvider.DrawFinished += _zoomProvider_DrawFinished;
+                _watch.Restart();
+                await _zoomProvider.ZoomTo(viewpoint);
+            }
+            if (mode == SimulationMode.SetView)
+            {
+                _zoomProvider.DrawFinished += _zoomProvider_DrawFinished;
+                _watch.Restart();
+                await _zoomProvider.ZoomTo(viewpoint);
+            }
+            else
+            {
+                var targetViewpoint = new Viewpoint((MapPoint)viewpoint.TargetGeometry, _zoomIn ? 625 : 500000);
+                await  _zoomProvider.ZoomTo(targetViewpoint);
+                _watch.Restart();
+                _zoomProvider.DrawFinished += _zoomProvider_DrawFinished;
+                for(int i = 0; i < 10; i++)
+                {
+                    await Task.Delay(200);
+                    if (_zoomIn)
+                    {
+                        await _mouseSimulator.WheelZoomIn();
+                    }
+                    else
+                    {
+                        await _mouseSimulator.WheelZoomOut();
+                    }
+                }
+
+                _zoomIn = !_zoomIn;
+            }
+
+
             return true;
         }
 
@@ -450,7 +609,7 @@ namespace MapRefresh
                 };
                 LogData(x);
             }
-            if (!await ExecuteZoom())
+            if (!await ExecuteZoom(_currentMode))
             {
                 _zoomProvider.DrawFinished -= _zoomProvider_DrawFinished;
                 IsRunning = Visibility.Collapsed;
@@ -461,14 +620,19 @@ namespace MapRefresh
         {
             Application.Current.Dispatcher.BeginInvoke((Action)(() => Items.Insert(0, details)));
             // runtime version; Elapsed time; tile count; scale; geometry
-            LogToCsv($"{details.RuntimeVersion};{(int)details.Duration.TotalMilliseconds};{details.TileCount};{details.Scale};{details.Center}");
+            LogToCsv($"{details.RuntimeVersion};{_currentMode};{(int)details.Duration.TotalMilliseconds};{details.TileCount};{details.Scale};{details.Center}");
             // TODO: Log to CVS
         }
 
         private void LogToCsv(string text)
         {
+            bool logHeader = !File.Exists(_logFile);
             using (StreamWriter sw = File.AppendText(_logFile))
             {
+                if(logHeader)
+                {
+                    sw.WriteLine("runtimeversion;mode;duration;tilecount;scale;center");
+                }
                 sw.WriteLine(text);
             }
         }
@@ -480,6 +644,12 @@ namespace MapRefresh
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+    }
+
+    public enum SimulationMode
+    {
+        SetView,
+        Wheel
     }
     #endregion
 

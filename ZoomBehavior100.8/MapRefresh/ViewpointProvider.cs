@@ -33,9 +33,14 @@ namespace MapRefresh
             _viewpoints.Add(Viewpoint.FromJson("{\"rotation\":0,\"scale\":97361.181387697347,\"targetGeometry\":{\"x\":34708.668807642534,\"y\":6928132.8525058292,\"spatialReference\":{\"wkid\":25833}}}"));
             _viewpoints.Add(Viewpoint.FromJson("{\"rotation\":0,\"scale\":11418.888550116595,\"targetGeometry\":{\"x\":-24734.587451196625,\"y\":6850905.4942463711,\"spatialReference\":{\"wkid\":25833}}}"));
             _viewpoints.Add(Viewpoint.FromJson("{\"rotation\":0,\"scale\":3443.5320063980007,\"targetGeometry\":{\"x\":-31933.414376911402,\"y\":6844529.970835058,\"spatialReference\":{\"wkid\":25833}}}"));
+            _viewpoints.Add(Viewpoint.FromJson("{\"rotation\":0,\"scale\":51662.675723618377,\"targetGeometry\":{\"x\":266348.85030032415,\"y\":7036630.5640587173,\"spatialReference\":{\"wkid\":25833}}}"));
+            _viewpoints.Add(Viewpoint.FromJson("{\"rotation\":0,\"scale\":2771.8131788674327,\"targetGeometry\":{\"x\":243093.43792383943,\"y\":7082664.8714525197,\"spatialReference\":{\"wkid\":25833}}}"));
+            _viewpoints.Add(Viewpoint.FromJson("{\"rotation\":0,\"scale\":1898.1949725583199,\"targetGeometry\":{\"x\":298397.53152330726,\"y\":7138339.5549517516,\"spatialReference\":{\"wkid\":25833}}}"));
+            _viewpoints.Add(Viewpoint.FromJson("{\"rotation\":0,\"scale\":121294.91045993054,\"targetGeometry\":{\"x\":483345.34455197235,\"y\":7463257.1025919355,\"spatialReference\":{\"wkid\":25833}}}"));
+
         }
 
-        public void Reset()
+                        public void Reset()
         {
             _queue.Clear();
             foreach (var item in _viewpoints)
