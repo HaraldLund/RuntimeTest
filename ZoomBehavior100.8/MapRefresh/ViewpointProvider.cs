@@ -40,7 +40,7 @@ namespace MapRefresh
 
         }
 
-                        public void Reset()
+        public void Reset()
         {
             _queue.Clear();
             foreach (var item in _viewpoints)

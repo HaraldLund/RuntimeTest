@@ -562,19 +562,13 @@ namespace MapRefresh
                 _watch.Restart();
                 await _zoomProvider.ZoomTo(viewpoint);
             }
-            if (mode == SimulationMode.SetView)
-            {
-                _zoomProvider.DrawFinished += _zoomProvider_DrawFinished;
-                _watch.Restart();
-                await _zoomProvider.ZoomTo(viewpoint);
-            }
             else
             {
-                var targetViewpoint = new Viewpoint((MapPoint)viewpoint.TargetGeometry, _zoomIn ? 625 : 500000);
+                var targetViewpoint = new Viewpoint((MapPoint)viewpoint.TargetGeometry, _zoomIn ? 625 : 50000);
                 await  _zoomProvider.ZoomTo(targetViewpoint);
                 _watch.Restart();
                 _zoomProvider.DrawFinished += _zoomProvider_DrawFinished;
-                for(int i = 0; i < 10; i++)
+                for(int i = 0; i < 8; i++)
                 {
                     await Task.Delay(200);
                     if (_zoomIn)
