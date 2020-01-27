@@ -1,63 +1,8 @@
 {
-
-  "Basmap": {
-    "URL": "https://services2.geodataonline.no/arcgis/rest/services/Geocache_UTM33_EUREF89/GeocacheBasis/MapServer" 
-  },
-
-  "ZoomingAreas": {
-    "Repetitions":  5,
-    "Extents": [     
-      {
-        "coordinates": [
-          [ 266437, 6651261 ],
-          [ 266437, 6653668 ],
-          [ 258133, 6651261 ],
-          [ 258133, 6653668 ]
-        ],
-        "wkid": 25833,
-        "ZoomDuration": 1
-      },      
-      {
-        "coordinates": [
-          [ 223062, 6635196 ],
-          [ 223062, 6673404 ],
-          [ 283568, 6635196 ],
-          [ 283568, 6673404 ]
-        ],
-        "wkid": 25833,
-        "ZoomDuration": 1
-      },      
-      {
-        "coordinates": [
-          [ 261914, 6649447 ],
-          [ 261914, 6649769 ],
-          [ 262406, 6649769 ],
-          [ 262406, 6649447 ]
-        ],
-        "wkid": 25833,
-        "ZoomDuration": 1
-      },      
-      {
-        "coordinates": [
-          [ 261813, 6645050 ],
-          [ 261813, 6654888 ],
-          [ 277532, 6654888 ],
-          [ 277532, 6645050 ]
-        ],
-        "wkid": 25833,
-        "ZoomDuration": 1
-      },      
-      {
-        "coordinates": [
-          [ 265410, 6648252 ],
-          [ 265410, 6648862 ],
-          [ 266462, 6648862 ],
-          [ 266462, 6648252 ]
-        ],
-        "wkid": 25833,
-        "ZoomDuration": 1
-      }
-    ]
-
-    }
+    "usetileCache":  true,
+    "basemap": "https://services2.geodataonline.no/arcgis/rest/services/Geocache_UTM33_EUREF89/GeocacheBasis/MapServer",
+  "webMap": {
+    "url": "http://www.arcgis.com/sharing/rest",
+    "item": "4b2b2784f68e4e5fb0c39c770f1b25ea"
+  }
   }

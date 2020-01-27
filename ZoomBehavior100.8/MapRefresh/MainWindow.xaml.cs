@@ -37,14 +37,16 @@ namespace MapRefresh
         {
             DataContext = this;
             InitializeComponent();
+            var c = new InitConfig();
 
-            string url = "https://services2.geodataonline.no/arcgis/rest/services/Geocache_UTM33_EUREF89/GeocacheBasis/MapServer";
-            //url = "https://services.geodataonline.no/arcgis/rest/services/Geocache_WMAS_WGS84/GeocacheBasis/MapServer";
-            var imageryTiledLayer = new ArcGISTiledLayer(new Uri(url));
-            // create a basemap from the tiled layer
+            //string url = "https://services2.geodataonline.no/arcgis/rest/services/Geocache_UTM33_EUREF89/GeocacheBasis/MapServer";
+            ////url = "https://services.geodataonline.no/arcgis/rest/services/Geocache_WMAS_WGS84/GeocacheBasis/MapServer";
+            //var imageryTiledLayer = new ArcGISTiledLayer(new Uri(url));
+            //// create a basemap from the tiled layer
 
-            _map.Basemap = new Basemap(imageryTiledLayer);
-            MyMapView.Map = _map;
+            //_map.Basemap = new Basemap(imageryTiledLayer);
+            //MyMapView.Map = _map;
+            c.SetMap(MyMapView);
             _viewpointProvider = new ViewpointProvider();
             ZoomSimulator = new ZoomSimulator(_viewpointProvider, new ZoomProvider(MyMapView), this);
             LegacyZoomSimulator = new ZoomSimulator(_viewpointProvider, new LegacyZoomProvider(LegacyMap), this);
