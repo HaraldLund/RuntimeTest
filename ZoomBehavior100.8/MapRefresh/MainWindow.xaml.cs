@@ -37,7 +37,7 @@ namespace MapRefresh
         {
             DataContext = this;
             InitializeComponent();
-            var c = new InitConfig();
+            
 
             //string url = "https://services2.geodataonline.no/arcgis/rest/services/Geocache_UTM33_EUREF89/GeocacheBasis/MapServer";
             ////url = "https://services.geodataonline.no/arcgis/rest/services/Geocache_WMAS_WGS84/GeocacheBasis/MapServer";
@@ -46,16 +46,24 @@ namespace MapRefresh
 
             //_map.Basemap = new Basemap(imageryTiledLayer);
             //MyMapView.Map = _map;
-            c.SetMap(MyMapView);
+
             _viewpointProvider = new ViewpointProvider();
             ZoomSimulator = new ZoomSimulator(_viewpointProvider, new ZoomProvider(MyMapView), this);
             LegacyZoomSimulator = new ZoomSimulator(_viewpointProvider, new LegacyZoomProvider(LegacyMap), this);
-            _map.LoadStatusChanged += _map_LoadStatusChanged;
+
+            InitializeMap();
+            
         }
 
-        public static readonly DependencyProperty LegacyZoomSimulatorProperty = DependencyProperty.Register("LegacyZoomSimulator", typeof(ZoomSimulator), typeof(MainWindow), new FrameworkPropertyMetadata(null));
-        public static readonly DependencyProperty ZoomSimulatorProperty = DependencyProperty.Register("ZoomSimulator", typeof(ZoomSimulator), typeof(MainWindow), new FrameworkPropertyMetadata(null));
-        
+        private async void InitializeMap()
+        {
+            var c = new InitConfig();
+            var map = await c.GetMap();
+            MyMapView.Map = map;
+            _map.LoadStatusChanged += _map_LoadStatusChanged;
+            await map.LoadAsync();
+        }
+
         private void _map_LoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
             if (sender is Map map && e.Status == Esri.ArcGISRuntime.LoadStatus.Loaded)
@@ -63,6 +71,11 @@ namespace MapRefresh
                 Dispatcher.BeginInvoke((Action)(() => LegacyMapLoader.InitializeLegacy(LegacyMap, map)));
             }
         }
+
+        public static readonly DependencyProperty LegacyZoomSimulatorProperty = DependencyProperty.Register("LegacyZoomSimulator", typeof(ZoomSimulator), typeof(MainWindow), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty ZoomSimulatorProperty = DependencyProperty.Register("ZoomSimulator", typeof(ZoomSimulator), typeof(MainWindow), new FrameworkPropertyMetadata(null));
+        
+
 
         public static readonly DependencyProperty SummaryProperty = DependencyProperty.Register("Summary", typeof(string), typeof(MainWindow), new FrameworkPropertyMetadata(null));
         public static readonly DependencyProperty UseWheelProperty = DependencyProperty.Register("UseWheel", typeof(bool), typeof(MainWindow), new FrameworkPropertyMetadata(false));

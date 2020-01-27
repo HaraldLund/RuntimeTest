@@ -43,39 +43,27 @@ namespace MapRefresh
             
         }
 
-        public void SetMap(MapView mv)
-        {
-            GetMap(mv);
-           
-        }
-
-        private async void GetMap(MapView mv)
+        public async Task<Map> GetMap()
         {
             if (_config.usetileCache)
             {
-
                 var imageryTiledLayer = new ArcGISTiledLayer(new Uri(_config.basemap));
                 Map map = new Map();
                 map.Basemap = new Basemap(imageryTiledLayer);
-                mv.Map = map;               
+                return map;
             }
-            else
+
+            try
             {
-             
-                try
-                {
-                    var Portal = await ArcGISPortal.CreateAsync(new Uri(_config.webMap.url));
-                    PortalItem webMapItem = null;
-                    webMapItem = await PortalItem.CreateAsync(Portal, _config.webMap.item);
-                    Map map = new Map(webMapItem);
-                    mv.Map = map;
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception($"Kan ikke laste kart; Portal inneholder ikke WebMap med Id {_config.webMap.item}: {ex.Message}");
-                }
-              
-              
+                var Portal = await ArcGISPortal.CreateAsync(new Uri(_config.webMap.url));
+                PortalItem webMapItem = null;
+                webMapItem = await PortalItem.CreateAsync(Portal, _config.webMap.item);
+                Map map = new Map(webMapItem);
+                return map;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Kan ikke laste kart; Portal inneholder ikke WebMap med Id {_config.webMap.item}: {ex.Message}");
             }
 
         }
