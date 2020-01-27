@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
 namespace MapRefresh
@@ -16,8 +15,6 @@ namespace MapRefresh
         {
             BuildViewpoints();
         }
-
-        public int Count => _viewpoints.Count;
 
         private void BuildViewpoints()
         {
