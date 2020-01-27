@@ -1,5 +1,5 @@
 {
-    "usetileCache":  true,
+    "usetileCache":  false,
     "basemap": "https://services2.geodataonline.no/arcgis/rest/services/Geocache_UTM33_EUREF89/GeocacheBasis/MapServer",
   "webMap": {
     "url": "http://www.arcgis.com/sharing/rest",
