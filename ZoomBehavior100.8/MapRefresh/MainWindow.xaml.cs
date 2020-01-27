@@ -28,8 +28,6 @@ namespace MapRefresh
     public partial class MainWindow : IMouseSim
     {
         #region Private members
-        private ICommand _clearRequestsCommand;
-        private Map _map = new Map();
         private readonly ViewpointProvider _viewpointProvider;
         #endregion
 
@@ -60,7 +58,7 @@ namespace MapRefresh
             var c = new InitConfig();
             var map = await c.GetMap();
             MyMapView.Map = map;
-            _map.LoadStatusChanged += _map_LoadStatusChanged;
+            map.LoadStatusChanged += _map_LoadStatusChanged;
             await map.LoadAsync();
         }
 
