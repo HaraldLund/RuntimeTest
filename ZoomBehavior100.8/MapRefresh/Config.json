@@ -2,7 +2,7 @@
     "usetileCache":  false,
     "basemap": "https://services2.geodataonline.no/arcgis/rest/services/Geocache_UTM33_EUREF89/GeocacheBasis/MapServer",
   "webMap": {
-    "url": "http://www.arcgis.com/sharing/rest",
-    "item": "4b2b2784f68e4e5fb0c39c770f1b25ea"
+    "url": "https://geodata.maps.arcgis.com/sharing/rest",
+    "item": "3201629d9aed4aceba4a489377778017"
   }
   }
