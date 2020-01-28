@@ -19,6 +19,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using MapRefresh.View.ViewModel;
+using System.Globalization;
 
 namespace MapRefresh
 {
@@ -358,7 +359,8 @@ namespace MapRefresh
                     Duration = _watch.Elapsed,
                     RuntimeVersion = e.Runtime,
                     Scale = (int)e.Viewpoint.TargetScale,
-                    TileCount = e.RequestedTiles
+                    TileCount = e.RequestedTiles,
+                    TimeStamp = e.TimeStamp
                 };
                 LogData(x);
             }
@@ -377,7 +379,7 @@ namespace MapRefresh
         {
             Application.Current.Dispatcher.BeginInvoke((Action)(() => Items.Insert(0, details)));
             // runtime version; Elapsed time; tile count; scale; geometry
-            LogToCsv($"{details.RuntimeVersion};{_currentMode};{(int)details.Duration.TotalMilliseconds};{details.TileCount};{details.Scale};{details.Center}");
+            LogToCsv($"{details.TimeStamp.ToString("- yyyy-MM-dd HH:mm:ss.ffff -", CultureInfo.InvariantCulture)};{details.RuntimeVersion};{_currentMode};{(int)details.Duration.TotalMilliseconds};{details.TileCount};{details.Scale};{details.Center}");
             // TODO: Log to CVS
         }
 
@@ -388,7 +390,7 @@ namespace MapRefresh
             {
                 if(logHeader)
                 {
-                    sw.WriteLine("runtimeversion;mode;duration;tilecount;scale;center");
+                    sw.WriteLine("timestamp;runtimeversion;mode;duration;tilecount;scale;center");
                 }
                 sw.WriteLine(text);
             }
@@ -419,6 +421,7 @@ namespace MapRefresh
             Viewpoint = viewpoint;
             RequestedTiles = requestedTiles;
             Runtime = runtime;
+            TimeStamp = DateTime.Now;
         }
         #endregion
 
@@ -426,7 +429,7 @@ namespace MapRefresh
         public Viewpoint Viewpoint { get; }
         public int RequestedTiles { get; }
         public string Runtime { get; }
-
+        public DateTime TimeStamp { get; }
         #endregion
     }
 
@@ -437,6 +440,7 @@ namespace MapRefresh
         public TimeSpan Duration { get; set; }
         public MapPoint Center { get; set; }
         public int Scale { get; set; }
+        public DateTime TimeStamp { get; set; }
     }
 
     public abstract class ZoomProviderBase
