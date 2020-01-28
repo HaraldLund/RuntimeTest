@@ -12,48 +12,40 @@
     <DockPanel>
         <TabControl>
             <TabItem Header="Runtime .NET">
-                <DockPanel >
+                <DockPanel>
                     <DockPanel DockPanel.Dock="Right" Width="400">
                         <DockPanel DockPanel.Dock="Top">
-                            <DockPanel DockPanel.Dock="Top">
-                                <DockPanel DockPanel.Dock="Top">
-                                    <StackPanel Margin="10,10,0,0">
-                                        <Button x:Name="buttoz" Content="Simulate zooming" HorizontalAlignment="Left" Height="24"  VerticalAlignment="Top" Width="88" Click="buttonz_Click"/>
-                                        <CheckBox Content="Use wheel" IsChecked="{Binding Path=UseWheel}" Margin="0,4,0,0" />
-                                    </StackPanel>
-                                </DockPanel>
-                                <StackPanel Height="20" DockPanel.Dock="Top">
-                                    <ProgressBar 
+                            <StackPanel>
+                                <Button x:Name="buttoz" Content="Simulate zooming" HorizontalAlignment="Left" Height="24"  VerticalAlignment="Top" Width="88" Click="buttonz_Click"/>
+                                <CheckBox Content="Use wheel" IsChecked="{Binding Path=UseWheel}" Margin="0,4,0,0" />
+                            </StackPanel>
+                        </DockPanel>
+                        <StackPanel Height="20" DockPanel.Dock="Top">
+                            <ProgressBar 
                                     Visibility="{Binding Path=ZoomSimulator.IsRunning}"
                                     Background="Transparent"
-                                    IsIndeterminate="True"
+                                    Value="{Binding Path=ZoomSimulator.CurrentProgress}"
+                                    Maximum="{Binding Path=ZoomSimulator.FullProgress}"
                                     Height="20"
                                     Margin="0,5,0,0"
                                     HorizontalAlignment="Stretch" />
-                                </StackPanel>
-                            </DockPanel>
+                        </StackPanel>
 
-                            <TextBlock DockPanel.Dock="Top" Text="Tile request for last operation" />
-                            <UniformGrid Rows="2">
-                                <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch">
-                                    <TextBlock TextWrapping="Wrap" DockPanel.Dock="Top" Text="{Binding Path=Summary}" ScrollViewer.CanContentScroll="False"/>
-                                </ScrollViewer>
-                                <ListView ItemsSource="{Binding Path=ZoomSimulator.Items}">
-                                    <ListView.View>
-                                        <GridView>
-                                            <GridView.Columns>
-                                                <GridViewColumn Header="Tid" DisplayMemberBinding="{Binding Path=Duration.TotalMilliseconds, StringFormat={}{0:0}}" Width="70" />
-                                                <GridViewColumn Header="1:x" DisplayMemberBinding="{Binding Path=Scale}"  Width="70"/>
-                                                <GridViewColumn Header="Tiles" DisplayMemberBinding="{Binding Path=TileCount}" Width="40" />
-                                                <GridViewColumn Header="Center" DisplayMemberBinding="{Binding Path=Center}" />
-                                            </GridView.Columns>
-                                        </GridView>
-                                    </ListView.View>
-                                </ListView>
-                            </UniformGrid>
-                        </DockPanel>
+                        <TextBlock DockPanel.Dock="Top" Text="{Binding Path=ZoomSimulator.TotalTime, StringFormat='{}Time {0}'}" />
+                        <TextBlock DockPanel.Dock="Top" Text="{Binding Path=ZoomSimulator.TotalTiles, StringFormat='{}Tiles {0}'}" />
+                        <ListView DockPanel.Dock="Top" ItemsSource="{Binding Path=ZoomSimulator.Items}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridView.Columns>
+                                        <GridViewColumn Header="Tid" DisplayMemberBinding="{Binding Path=Duration.TotalMilliseconds, StringFormat={}{0:0}}" Width="70" />
+                                        <GridViewColumn Header="Tiles" DisplayMemberBinding="{Binding Path=TileCount}" Width="40" />
+                                        <GridViewColumn Header="1:x" DisplayMemberBinding="{Binding Path=Scale}"  Width="70"/>
+                                        <GridViewColumn Header="Center" DisplayMemberBinding="{Binding Path=Center}" />
+                                    </GridView.Columns>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
                     </DockPanel>
-
                     <Grid>
                         <esri:MapView x:Name="MyMapView" Background="Transparent" MinWidth="1024" MinHeight="1024">
                             <esri:MapView.InteractionOptions>
@@ -67,39 +59,35 @@
             <TabItem Header="WPF/Silverlight">
                 <DockPanel>
                     <DockPanel DockPanel.Dock="Right" Width="400">
-                        <DockPanel DockPanel.Dock="Top">
-                            <DockPanel DockPanel.Dock="Top">
-                                <DockPanel DockPanel.Dock="Top">
-                                    <StackPanel Margin="0,10,0,0" DockPanel.Dock="Top">
-                                        <Button DockPanel.Dock="Top" Content="Simulate zooming" HorizontalAlignment="Left" Height="24" Margin="10,10,0,0" VerticalAlignment="Top" Width="88" Click="StartSimulateLegacy"/>
-                                        <CheckBox Content="Use wheel" IsChecked="{Binding Path=UseWheel}" Margin="0,4,0,0" />
-                                    </StackPanel>
-                                    <StackPanel Height="20" DockPanel.Dock="Top">
-                                        <ProgressBar x:Name="ActivityIndicatorx"
-                                 Background="Transparent"
-                                 Visibility="{Binding Path=LegacyZoomSimulator.IsRunning}"
-                                 IsIndeterminate="True"
-                                 Height="20"
-                                 Margin="0,5,0,0"
-                                 HorizontalAlignment="Stretch" />
-                                    </StackPanel>
-                                </DockPanel>
-                            </DockPanel>
+                        <StackPanel DockPanel.Dock="Top">
+                            <Button DockPanel.Dock="Top" Content="Simulate zooming" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="88" Click="StartSimulateLegacy"/>
+                            <CheckBox Content="Use wheel" IsChecked="{Binding Path=UseWheel}" Margin="0,4,0,0" />
+                        </StackPanel>
+                        <StackPanel Height="20" DockPanel.Dock="Top">
+                            <ProgressBar x:Name="ActivityIndicatorx"
+                                             Background="Transparent"
+                                             Visibility="{Binding Path=LegacyZoomSimulator.IsRunning}"
+                                             Value="{Binding Path=LegacyZoomSimulator.CurrentProgress}"
+                                             Maximum="{Binding Path=LegacyZoomSimulator.FullProgress}"
+                                             Height="20"
+                                             Margin="0,5,0,0"
+                                             HorizontalAlignment="Stretch" />
+                        </StackPanel>
+                        <TextBlock DockPanel.Dock="Top" Text="{Binding Path=LegacyZoomSimulator.Provider.Progress, StringFormat='{}Progress {0}'}" />
+                        <TextBlock DockPanel.Dock="Top" Text="{Binding Path=LegacyZoomSimulator.TotalTime, StringFormat='{}Time {0}'}" />
+                        <TextBlock DockPanel.Dock="Top" Text="{Binding Path=LegacyZoomSimulator.TotalTiles, StringFormat='{}Tiles {0}'}" />
 
-                            <TextBlock DockPanel.Dock="Top" Text="Tile request for last operation" />
-
-                            <ListView ItemsSource="{Binding Path=LegacyZoomSimulator.Items}">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridView.Columns>
-                                            <GridViewColumn Header="Tid" DisplayMemberBinding="{Binding Path=Duration.TotalMilliseconds, StringFormat={}{0:0}}" Width="70" />
-                                            <GridViewColumn Header="1:x" DisplayMemberBinding="{Binding Path=Scale}"  Width="70"/>
-                                            <GridViewColumn Header="Center" DisplayMemberBinding="{Binding Path=Center}" />
-                                        </GridView.Columns>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                        </DockPanel>
+                        <ListView DockPanel.Dock="Top" ItemsSource="{Binding Path=LegacyZoomSimulator.Items}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridView.Columns>
+                                        <GridViewColumn Header="Tid" DisplayMemberBinding="{Binding Path=Duration.TotalMilliseconds, StringFormat={}{0:0}}" Width="70" />
+                                        <GridViewColumn Header="1:x" DisplayMemberBinding="{Binding Path=Scale}"  Width="70"/>
+                                        <GridViewColumn Header="Center" DisplayMemberBinding="{Binding Path=Center}" />
+                                    </GridView.Columns>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
                     </DockPanel>
 
                     <Grid>
