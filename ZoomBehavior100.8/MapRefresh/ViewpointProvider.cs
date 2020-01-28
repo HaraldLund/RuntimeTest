@@ -34,9 +34,9 @@ namespace MapRefresh
             _viewpoints.Add(Viewpoint.FromJson("{\"rotation\":0,\"scale\":2771,\"targetGeometry\":{\"x\":243093,\"y\":7082664,\"spatialReference\":{\"wkid\":25833}}}"));
             _viewpoints.Add(Viewpoint.FromJson("{\"rotation\":0,\"scale\":1898,\"targetGeometry\":{\"x\":298397,\"y\":7138339,\"spatialReference\":{\"wkid\":25833}}}"));
             _viewpoints.Add(Viewpoint.FromJson("{\"rotation\":0,\"scale\":121294,\"targetGeometry\":{\"x\":483345,\"y\":7463257,\"spatialReference\":{\"wkid\":25833}}}"));
-
         }
 
+        public int Count => _viewpoints.Count;
         public void Reset()
         {
             _queue.Clear();

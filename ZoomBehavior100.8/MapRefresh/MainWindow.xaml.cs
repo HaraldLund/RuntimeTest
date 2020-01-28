@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -18,7 +14,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
-using MapRefresh.View.ViewModel;
 using System.Globalization;
 
 namespace MapRefresh
@@ -49,7 +44,6 @@ namespace MapRefresh
             _viewpointProvider = new ViewpointProvider();
             ZoomSimulator = new ZoomSimulator(_viewpointProvider, new ZoomProvider(MyMapView), this);
             LegacyZoomProvider lzp = new LegacyZoomProvider(LegacyMap);
-
             LegacyZoomSimulator = new ZoomSimulator(_viewpointProvider, lzp, this);
 
             InitializeMap();
@@ -260,18 +254,23 @@ namespace MapRefresh
     public class ZoomSimulator : INotifyPropertyChanged
     {
         #region Private members
+        private int _totalTiles;
+        private TimeSpan _totalTime;
         private Visibility _isRunning = Visibility.Collapsed;
         private readonly ViewpointProvider _viewpointProvider;
-        private readonly ZoomProviderBase _zoomProvider;
+        public ZoomProviderBase Provider { get; }
         private readonly IMouseSim _mouseSimulator;
         private readonly Stopwatch _watch = new Stopwatch();
         private readonly string _logFile;
+        private bool _zoomIn;
+        private int _fullProgress;
+        private int _currentProgress;
         #endregion
 
         public ZoomSimulator(ViewpointProvider viewpointProvider, ZoomProviderBase zoomProvider, IMouseSim mouseSimulator)
         {
             _viewpointProvider = viewpointProvider;
-            _zoomProvider = zoomProvider;
+            Provider = zoomProvider;
             _mouseSimulator = mouseSimulator;
             Items = new ObservableCollection<LevelDetails>();
             _logFile = Path.Combine(MainWindow.AssemblyDirectory, $"ZoomLog-{zoomProvider.RuntimeVersion}.csv");
@@ -294,13 +293,68 @@ namespace MapRefresh
         public async Task RunZoomSimulation(SimulationMode mode)
         {
             _currentMode = mode;
+            FullProgress = _viewpointProvider.Count;
+            CurrentProgress = 0;
+            TotalTime = TimeSpan.Zero;
+            TotalTiles = 0;
             Items.Clear();
             IsRunning = Visibility.Visible;
             _viewpointProvider.Reset();
             await ExecuteZoom(mode);
         }
 
-        private bool _zoomIn;
+
+        public TimeSpan TotalTime
+        {
+            get { return _totalTime; }
+            set
+            {
+                if (_totalTime == value)
+                    return;
+                _totalTime = value;
+                OnPropertyChanged();
+            }
+        }
+
+        
+        public int TotalTiles
+        {
+            get { return _totalTiles; }
+            set
+            {
+                if (_totalTiles == value)
+                    return;
+                _totalTiles = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int FullProgress
+        {
+            get => _fullProgress;
+            set
+            {
+                if (_fullProgress != value)
+                {
+                    _fullProgress = value;
+                    OnPropertyChanged(nameof(FullProgress));
+                }
+            }
+        }
+
+        public int CurrentProgress
+        {
+            get => _currentProgress;
+            set
+            {
+                if (_currentProgress != value)
+                {
+                    _currentProgress = value;
+                    OnPropertyChanged(nameof(CurrentProgress));
+                }
+            }
+        }
+
         private async Task<bool> ExecuteZoom(SimulationMode mode)
         {
             // TODO: do multiple iterations?
@@ -310,25 +364,28 @@ namespace MapRefresh
                 return false;
             }
 
+            
             await Task.Delay(500);
             if (mode == SimulationMode.SetView)
             {
-                _zoomProvider.DrawFinished += _zoomProvider_DrawFinished;
-                Trace.WriteLine("Subscribed");
+                Provider.DrawFinished += _zoomProvider_DrawFinished;
                 _watch.Restart();
-                await _zoomProvider.ZoomTo(viewpoint);
+                Trace.WriteLine($"Subscribed {_currentMode}");
+                await Provider.ZoomTo(viewpoint);
             }
             else
             {
                 var targetViewpoint = new Viewpoint((MapPoint)viewpoint.TargetGeometry, _zoomIn ? 625 : 50000);
-                //var zoom = _zoomProvider.ZoomTo(targetViewpoint);
-                await _zoomProvider.ZoomTo(targetViewpoint);
+                await Provider.ZoomTo(targetViewpoint);
+
+                Provider.DrawFinished += _zoomProvider_DrawFinished;
+                Trace.WriteLine($"Subscribed {_currentMode}");
                 _watch.Restart();
-                _zoomProvider.DrawFinished += _zoomProvider_DrawFinished;
-                //Trace.WriteLine("Subscribed");
-                for(int i = 0; i < 8; i++)
+                for (int i = 0; i < 9; i++)
                 {
+                    _watch.Stop();
                     await Task.Delay(200);
+                    _watch.Start();
                     if (_zoomIn)
                     {
                         await _mouseSimulator.WheelZoomIn();
@@ -347,12 +404,12 @@ namespace MapRefresh
 
         private async void _zoomProvider_DrawFinished(object sender, DrawFinishEventArgs e)
         {
+            CurrentProgress++;
             _watch.Stop();
-            if (_currentMode == SimulationMode.Wheel)
-            {
-                _zoomProvider.DrawFinished -= _zoomProvider_DrawFinished;
-                //Trace.WriteLine("Unsubscribed");
-            }
+            TotalTiles += e.RequestedTiles;
+            TotalTime += _watch.Elapsed;
+            Provider.DrawFinished -= _zoomProvider_DrawFinished;
+            Trace.WriteLine($"Unsubscribed {_currentMode}");
             if (_watch.ElapsedMilliseconds > 0)
             {
                 var x = new LevelDetails
@@ -368,11 +425,6 @@ namespace MapRefresh
             }
             if (!await ExecuteZoom(_currentMode))
             {
-                if (_currentMode == SimulationMode.SetView)
-                {
-                    _zoomProvider.DrawFinished -= _zoomProvider_DrawFinished;
-                    //Trace.WriteLine("Unsubscribed");
-                }
                 IsRunning = Visibility.Collapsed;
             }
         }
@@ -445,7 +497,7 @@ namespace MapRefresh
         public DateTime TimeStamp { get; set; }
     }
 
-    public abstract class ZoomProviderBase
+    public abstract class ZoomProviderBase : INotifyPropertyChanged
     {
         public event EventHandler<DrawFinishEventArgs> DrawFinished;
 
@@ -457,6 +509,12 @@ namespace MapRefresh
         public abstract Task ZoomTo(Viewpoint viewpoint);
 
         public abstract string RuntimeVersion { get; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
     #endregion
 
