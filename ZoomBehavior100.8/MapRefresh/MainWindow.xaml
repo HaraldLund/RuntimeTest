@@ -18,8 +18,8 @@
                             <DockPanel DockPanel.Dock="Top">
                                 <DockPanel DockPanel.Dock="Top">
                                     <StackPanel Margin="10,10,0,0">
-                                    <Button x:Name="buttoz" Content="Simulate zooming" HorizontalAlignment="Left" Height="24"  VerticalAlignment="Top" Width="88" Click="buttonz_Click"/>
-                                    <CheckBox Content="Use wheel" IsChecked="{Binding Path=UseWheel}" Margin="0,4,0,0" />
+                                        <Button x:Name="buttoz" Content="Simulate zooming" HorizontalAlignment="Left" Height="24"  VerticalAlignment="Top" Width="88" Click="buttonz_Click"/>
+                                        <CheckBox Content="Use wheel" IsChecked="{Binding Path=UseWheel}" Margin="0,4,0,0" />
                                     </StackPanel>
                                 </DockPanel>
                                 <StackPanel Height="20" DockPanel.Dock="Top">
@@ -68,16 +68,23 @@
                 <DockPanel>
                     <DockPanel DockPanel.Dock="Right" Width="400">
                         <DockPanel DockPanel.Dock="Top">
-                            <Button DockPanel.Dock="Top" Content="Simulate zooming" HorizontalAlignment="Left" Height="24" Margin="10,10,0,0" VerticalAlignment="Top" Width="88" Click="StartSimulateLegacy"/>
-                            <StackPanel Height="20" DockPanel.Dock="Top">
-                                <ProgressBar x:Name="ActivityIndicatorx"
+                            <DockPanel DockPanel.Dock="Top">
+                                <DockPanel DockPanel.Dock="Top">
+                                    <StackPanel Margin="0,10,0,0" DockPanel.Dock="Top">
+                                        <Button DockPanel.Dock="Top" Content="Simulate zooming" HorizontalAlignment="Left" Height="24" Margin="10,10,0,0" VerticalAlignment="Top" Width="88" Click="StartSimulateLegacy"/>
+                                        <CheckBox Content="Use wheel" IsChecked="{Binding Path=UseWheel}" Margin="0,4,0,0" />
+                                    </StackPanel>
+                                    <StackPanel Height="20" DockPanel.Dock="Top">
+                                        <ProgressBar x:Name="ActivityIndicatorx"
                                  Background="Transparent"
                                  Visibility="{Binding Path=LegacyZoomSimulator.IsRunning}"
                                  IsIndeterminate="True"
                                  Height="20"
                                  Margin="0,5,0,0"
                                  HorizontalAlignment="Stretch" />
-                            </StackPanel>
+                                    </StackPanel>
+                                </DockPanel>
+                            </DockPanel>
 
                             <TextBlock DockPanel.Dock="Top" Text="Tile request for last operation" />
 
