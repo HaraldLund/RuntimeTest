@@ -29,10 +29,22 @@ namespace MapRefresh
             if (viewpoint.TargetGeometry is Esri.ArcGISRuntime.Geometry.MapPoint point)
             {
                 var mapPoint = new MapPoint(point.X, point.Y, new SpatialReference(point.SpatialReference.Wkid));
-                var resolution = Geometry.GetResolution(viewpoint.TargetScale, mapPoint.SpatialReference);
-                await _mapView.Dispatcher.BeginInvoke((Action)(()=>_mapView.ZoomToResolution(resolution, mapPoint)));
+                var extent = GetExtent(viewpoint.TargetScale, mapPoint);
+                await _mapView.Dispatcher.BeginInvoke((Action)(() => _mapView.ZoomTo(extent)));
             }
-            //await _mapView.SetViewpointAsync(viewpoint);
+        }
+
+        private Envelope GetExtent(double viewpointTargetScale, MapPoint point)
+        {
+            var currentRes = _mapView.Resolution;
+            var targetRes = Geometry.GetResolution(viewpointTargetScale, point.SpatialReference);
+            var factor = (targetRes / currentRes);
+            var width = (_mapView.Extent.Width * factor) / 2d;
+            var height = (_mapView.Extent.Height * factor) / 2d ;
+            return new Envelope(point.X-width, point.Y-height, point.X + width, point.Y + height)
+            {
+                SpatialReference = point.SpatialReference
+            };
         }
 
         private void _mapView_Progress(object sender, ProgressEventArgs e)
