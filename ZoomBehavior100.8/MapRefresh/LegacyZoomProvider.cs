@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using ESRI.ArcGIS.Client;
 using ESRI.ArcGIS.Client.Geometry;
+using System.Windows.Controls;
 
 namespace MapRefresh
 {
@@ -11,7 +12,7 @@ namespace MapRefresh
         private readonly Map _mapView;
         private readonly string _runtime;
         private Esri.ArcGISRuntime.Mapping.Viewpoint _currentViewpoint;
-
+        private TextBlock _txtBox;
         #endregion
 
         public LegacyZoomProvider(ESRI.ArcGIS.Client.Map mapView)
@@ -22,6 +23,7 @@ namespace MapRefresh
 
         public override string RuntimeVersion => _runtime;
 
+        public TextBlock SetTextBlockControl { set { _txtBox = value; } }
         public override async Task ZoomTo(Esri.ArcGISRuntime.Mapping.Viewpoint viewpoint)
         {
             _currentViewpoint = viewpoint;
@@ -49,6 +51,7 @@ namespace MapRefresh
 
         private void _mapView_Progress(object sender, ProgressEventArgs e)
         {
+            _txtBox.Text = e.Progress.ToString();
             if (e.Progress == 100)
             {
                 _mapView.Progress -= _mapView_Progress;

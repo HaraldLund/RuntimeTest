@@ -48,7 +48,9 @@ namespace MapRefresh
 
             _viewpointProvider = new ViewpointProvider();
             ZoomSimulator = new ZoomSimulator(_viewpointProvider, new ZoomProvider(MyMapView), this);
-            LegacyZoomSimulator = new ZoomSimulator(_viewpointProvider, new LegacyZoomProvider(LegacyMap), this);
+            LegacyZoomProvider lzp = new LegacyZoomProvider(LegacyMap);
+            lzp.SetTextBlockControl = txtBox;
+            LegacyZoomSimulator = new ZoomSimulator(_viewpointProvider, lzp, this);
 
             InitializeMap();
             
@@ -312,7 +314,7 @@ namespace MapRefresh
             if (mode == SimulationMode.SetView)
             {
                 _zoomProvider.DrawFinished += _zoomProvider_DrawFinished;
-                Trace.WriteLine($"Subscribed {_currentMode}");
+                Trace.WriteLine("Subscribed");
                 _watch.Restart();
                 await _zoomProvider.ZoomTo(viewpoint);
             }
@@ -323,8 +325,8 @@ namespace MapRefresh
                 await _zoomProvider.ZoomTo(targetViewpoint);
                 _watch.Restart();
                 _zoomProvider.DrawFinished += _zoomProvider_DrawFinished;
-                Trace.WriteLine($"Subscribed {_currentMode}");
-                for (int i = 0; i < 8; i++)
+                //Trace.WriteLine("Subscribed");
+                for(int i = 0; i < 8; i++)
                 {
                     await Task.Delay(200);
                     if (_zoomIn)
@@ -346,9 +348,11 @@ namespace MapRefresh
         private async void _zoomProvider_DrawFinished(object sender, DrawFinishEventArgs e)
         {
             _watch.Stop();
-            _zoomProvider.DrawFinished -= _zoomProvider_DrawFinished;
-            Trace.WriteLine($"Unsubscribed {_currentMode}");
-
+            if (_currentMode == SimulationMode.Wheel)
+            {
+                _zoomProvider.DrawFinished -= _zoomProvider_DrawFinished;
+                //Trace.WriteLine("Unsubscribed");
+            }
             if (_watch.ElapsedMilliseconds > 0)
             {
                 var x = new LevelDetails
@@ -364,6 +368,11 @@ namespace MapRefresh
             }
             if (!await ExecuteZoom(_currentMode))
             {
+                if (_currentMode == SimulationMode.SetView)
+                {
+                    _zoomProvider.DrawFinished -= _zoomProvider_DrawFinished;
+                    //Trace.WriteLine("Unsubscribed");
+                }
                 IsRunning = Visibility.Collapsed;
             }
         }
