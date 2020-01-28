@@ -311,7 +311,7 @@ namespace MapRefresh
             if (mode == SimulationMode.SetView)
             {
                 _zoomProvider.DrawFinished += _zoomProvider_DrawFinished;
-                Trace.WriteLine("Subscribed");
+                Trace.WriteLine($"Subscribed {_currentMode}");
                 _watch.Restart();
                 await _zoomProvider.ZoomTo(viewpoint);
             }
@@ -322,8 +322,8 @@ namespace MapRefresh
                 await _zoomProvider.ZoomTo(targetViewpoint);
                 _watch.Restart();
                 _zoomProvider.DrawFinished += _zoomProvider_DrawFinished;
-                //Trace.WriteLine("Subscribed");
-                for(int i = 0; i < 8; i++)
+                Trace.WriteLine($"Subscribed {_currentMode}");
+                for (int i = 0; i < 8; i++)
                 {
                     await Task.Delay(200);
                     if (_zoomIn)
@@ -345,11 +345,9 @@ namespace MapRefresh
         private async void _zoomProvider_DrawFinished(object sender, DrawFinishEventArgs e)
         {
             _watch.Stop();
-            if (_currentMode == SimulationMode.Wheel)
-            {
-                _zoomProvider.DrawFinished -= _zoomProvider_DrawFinished;
-                //Trace.WriteLine("Unsubscribed");
-            }
+            _zoomProvider.DrawFinished -= _zoomProvider_DrawFinished;
+            Trace.WriteLine($"Unsubscribed {_currentMode}");
+
             if (_watch.ElapsedMilliseconds > 0)
             {
                 var x = new LevelDetails
@@ -364,11 +362,6 @@ namespace MapRefresh
             }
             if (!await ExecuteZoom(_currentMode))
             {
-                if (_currentMode == SimulationMode.SetView)
-                {
-                    _zoomProvider.DrawFinished -= _zoomProvider_DrawFinished;
-                    //Trace.WriteLine("Unsubscribed");
-                }
                 IsRunning = Visibility.Collapsed;
             }
         }
