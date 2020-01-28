@@ -258,13 +258,14 @@ namespace MapRefresh
         private TimeSpan _totalTime;
         private Visibility _isRunning = Visibility.Collapsed;
         private readonly ViewpointProvider _viewpointProvider;
-        public ZoomProviderBase Provider { get; }
         private readonly IMouseSim _mouseSimulator;
         private readonly Stopwatch _watch = new Stopwatch();
         private readonly string _logFile;
         private bool _zoomIn;
         private int _fullProgress;
         private int _currentProgress;
+        private SimulationMode _currentMode;
+        private int _execution;
         #endregion
 
         public ZoomSimulator(ViewpointProvider viewpointProvider, ZoomProviderBase zoomProvider, IMouseSim mouseSimulator)
@@ -276,6 +277,8 @@ namespace MapRefresh
             _logFile = Path.Combine(MainWindow.AssemblyDirectory, $"ZoomLog-{zoomProvider.RuntimeVersion}.csv");
         }
 
+        #region Public properties
+        public ZoomProviderBase Provider { get; }
         public ObservableCollection<LevelDetails> Items { get; }
 
         public Visibility IsRunning
@@ -289,20 +292,6 @@ namespace MapRefresh
                 OnPropertyChanged();
             }
         }
-        private SimulationMode _currentMode;
-        public async Task RunZoomSimulation(SimulationMode mode)
-        {
-            _currentMode = mode;
-            FullProgress = _viewpointProvider.Count;
-            CurrentProgress = 0;
-            TotalTime = TimeSpan.Zero;
-            TotalTiles = 0;
-            Items.Clear();
-            IsRunning = Visibility.Visible;
-            _viewpointProvider.Reset();
-            await ExecuteZoom(mode);
-        }
-
 
         public TimeSpan TotalTime
         {
@@ -316,7 +305,7 @@ namespace MapRefresh
             }
         }
 
-        
+
         public int TotalTiles
         {
             get { return _totalTiles; }
@@ -354,6 +343,19 @@ namespace MapRefresh
                 }
             }
         }
+        #endregion
+        public async Task RunZoomSimulation(SimulationMode mode)
+        {
+            _currentMode = mode;
+            FullProgress = _viewpointProvider.Count;
+            CurrentProgress = 0;
+            TotalTime = TimeSpan.Zero;
+            TotalTiles = 0;
+            Items.Clear();
+            IsRunning = Visibility.Visible;
+            _viewpointProvider.Reset();
+            await ExecuteZoom(mode);
+        }
 
         private async Task<bool> ExecuteZoom(SimulationMode mode)
         {
@@ -364,7 +366,6 @@ namespace MapRefresh
                 return false;
             }
 
-            
             await Task.Delay(500);
             if (mode == SimulationMode.SetView)
             {
@@ -419,7 +420,8 @@ namespace MapRefresh
                     RuntimeVersion = e.Runtime,
                     Scale = (int)e.Viewpoint.TargetScale,
                     TileCount = e.RequestedTiles,
-                    TimeStamp = e.TimeStamp
+                    TimeStamp = e.TimeStamp,
+                    Execution = ++_execution
                 };
                 LogData(x);
             }
@@ -433,7 +435,7 @@ namespace MapRefresh
         {
             Application.Current.Dispatcher.BeginInvoke((Action)(() => Items.Insert(0, details)));
             // runtime version; Elapsed time; tile count; scale; geometry
-            LogToCsv($"{details.TimeStamp.ToString("- yyyy-MM-dd HH:mm:ss.ffff -", CultureInfo.InvariantCulture)};{details.RuntimeVersion};{_currentMode};{(int)details.Duration.TotalMilliseconds};{details.TileCount};{details.Scale};{details.Center}");
+            LogToCsv($"{details.TimeStamp.ToString("- yyyy-MM-dd HH:mm:ss.ffff -", CultureInfo.InvariantCulture)};{details.RuntimeVersion};{_currentMode};{(int)details.Duration.TotalMilliseconds};{details.TileCount};{details.Scale};{details.Center};{details.Execution}");
             // TODO: Log to CVS
         }
 
@@ -444,7 +446,7 @@ namespace MapRefresh
             {
                 if(logHeader)
                 {
-                    sw.WriteLine("timestamp;runtimeversion;mode;duration;tilecount;scale;center");
+                    sw.WriteLine("timestamp;runtimeversion;mode;duration;tilecount;scale;center;execution");
                 }
                 sw.WriteLine(text);
             }
@@ -495,6 +497,7 @@ namespace MapRefresh
         public MapPoint Center { get; set; }
         public int Scale { get; set; }
         public DateTime TimeStamp { get; set; }
+        public int Execution { get; set; }
     }
 
     public abstract class ZoomProviderBase : INotifyPropertyChanged
