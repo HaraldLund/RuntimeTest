@@ -1,8 +1,8 @@
 {
-    "usetileCache":  false,
-    "basemap": "https://services2.geodataonline.no/arcgis/rest/services/Geocache_UTM33_EUREF89/GeocacheBasis/MapServer",
+  "usetileCache": true,
+  "basemap": "https://kart.locusps.no/locuskart/rest/services/LocusKartetTopo/MapServer",
   "webMap": {
     "url": "https://geodata.maps.arcgis.com/sharing/rest",
     "item": "3201629d9aed4aceba4a489377778017"
   }
-  }
+}

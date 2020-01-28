@@ -49,7 +49,7 @@ namespace MapRefresh
             _viewpointProvider = new ViewpointProvider();
             ZoomSimulator = new ZoomSimulator(_viewpointProvider, new ZoomProvider(MyMapView), this);
             LegacyZoomProvider lzp = new LegacyZoomProvider(LegacyMap);
-            lzp.SetTextBlockControl = txtBox;
+
             LegacyZoomSimulator = new ZoomSimulator(_viewpointProvider, lzp, this);
 
             InitializeMap();

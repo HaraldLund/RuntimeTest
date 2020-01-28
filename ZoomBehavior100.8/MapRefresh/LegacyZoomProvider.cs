@@ -51,7 +51,6 @@ namespace MapRefresh
 
         private void _mapView_Progress(object sender, ProgressEventArgs e)
         {
-            _txtBox.Text = e.Progress.ToString();
             if (e.Progress == 100)
             {
                 _mapView.Progress -= _mapView_Progress;

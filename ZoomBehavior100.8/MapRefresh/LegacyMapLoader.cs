@@ -21,7 +21,10 @@ namespace MapRefresh
             foreach (var layer in sourceLayer)
             {
                 var converted = Convert(layer);
-                group.ChildLayers.Add(converted);
+                if (converted != null)
+                {
+                    group.ChildLayers.Add(converted);
+                }
             }
             map.Layers.Add(group);
         }
