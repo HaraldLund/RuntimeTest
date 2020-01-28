@@ -78,6 +78,7 @@
                                  Margin="0,5,0,0"
                                  HorizontalAlignment="Stretch" />
                             </StackPanel>
+                            <TextBlock DockPanel.Dock="Top" x:Name="txtBox" Text="Progress" />
 
                             <TextBlock DockPanel.Dock="Top" Text="Tile request for last operation" />
 
