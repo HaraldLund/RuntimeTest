@@ -9,6 +9,9 @@
         xmlns:mapRefresh="clr-namespace:MapRefresh"
         mc:Ignorable="d"
         Title="MainWindow" WindowState="Maximized">
+    <Window.Resources>
+        <mapRefresh:InvertBoolConverter x:Key="InvertBoolConverter"/>
+    </Window.Resources>
     <DockPanel>
         <TabControl>
             <TabItem Header="Runtime .NET">
@@ -18,6 +21,7 @@
                             <StackPanel>
                                 <Button x:Name="buttoz" Content="Simulate zooming" HorizontalAlignment="Left" Height="24"  VerticalAlignment="Top" Width="88" Click="buttonz_Click"/>
                                 <CheckBox Content="Use wheel" IsChecked="{Binding Path=UseWheel}" Margin="0,4,0,0" />
+                                <CheckBox Content="Animate SetView" IsChecked="{Binding Path=ZoomSimulator.Provider.IsZoomDurationActive}" IsEnabled="{Binding Path=UseWheel, Converter={StaticResource InvertBoolConverter}}"/>
                             </StackPanel>
                         </DockPanel>
                         <StackPanel Height="20" DockPanel.Dock="Top">
@@ -62,6 +66,7 @@
                         <StackPanel DockPanel.Dock="Top">
                             <Button DockPanel.Dock="Top" Content="Simulate zooming" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="88" Click="StartSimulateLegacy"/>
                             <CheckBox Content="Use wheel" IsChecked="{Binding Path=UseWheel}" Margin="0,4,0,0" />
+                            <CheckBox Content="ZoomDuration 750ms" IsChecked="{Binding Path=LegacyZoomSimulator.Provider.IsZoomDurationActive}"/>
                         </StackPanel>
                         <StackPanel Height="20" DockPanel.Dock="Top">
                             <ProgressBar x:Name="ActivityIndicatorx"
@@ -92,7 +97,9 @@
 
                     <Grid>
                         <legacy:Map x:Name="LegacyMap" Background="Transparent" MinWidth="1024" MinHeight="1024" PanDuration="00:00:00.0" ZoomDuration="00:00:00.0"/>
-                        <TextBlock Text="{Binding Path=Scale, ElementName=LegacyMap}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="25"/>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                            <TextBlock Text="{Binding Path=Scale, ElementName=LegacyMap}" FontSize="25"/>
+                        </StackPanel>
                     </Grid>
                 </DockPanel>
             </TabItem>

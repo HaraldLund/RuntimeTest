@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.Globalization;
+using System.Windows.Data;
 
 namespace MapRefresh
 {
@@ -518,6 +519,8 @@ namespace MapRefresh
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public abstract bool IsZoomDurationActive { get; set; }
     }
     #endregion
 
@@ -529,6 +532,8 @@ namespace MapRefresh
         private Viewpoint _currentViewpoint;
         private int _tileCount;
         private readonly string _runtimeVersion;
+        private bool _isZoomDurationActive;
+
         #endregion
 
         #region Constructor
@@ -541,6 +546,19 @@ namespace MapRefresh
         public override string RuntimeVersion => _runtimeVersion;
 
         #endregion
+
+        public override bool IsZoomDurationActive
+        {
+            get => _isZoomDurationActive;
+            set
+            {
+                if (_isZoomDurationActive != value)
+                {
+                    _isZoomDurationActive = value;
+                    OnPropertyChanged(nameof(IsZoomDurationActive));
+                }
+            }
+        }
 
         private void _mapView_DrawStatusChanged(object sender, DrawStatusChangedEventArgs e)
         {
@@ -558,7 +576,14 @@ namespace MapRefresh
             _currentViewpoint = viewpoint;
             _mapView.DrawStatusChanged += _mapView_DrawStatusChanged;
             Esri.ArcGISRuntime.Http.ArcGISHttpClientHandler.HttpRequestBegin += ArcGISHttpClientHandler_HttpRequestBegin;
-            await _mapView.SetViewpointAsync(viewpoint);
+            if (IsZoomDurationActive)
+            {
+                await _mapView.SetViewpointAsync(viewpoint);
+            }
+            else
+            {
+                await _mapView.SetViewpointAsync(viewpoint, TimeSpan.Zero);
+            }
         }
 
         private void ArcGISHttpClientHandler_HttpRequestBegin(object sender, System.Net.Http.HttpRequestMessage e)
@@ -568,5 +593,20 @@ namespace MapRefresh
     }
     #endregion
 
+    public class InvertBoolConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if(value is bool isChecked)
+            {
+                return !isChecked;
+            }
+            return value;
+        }
 
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
 }

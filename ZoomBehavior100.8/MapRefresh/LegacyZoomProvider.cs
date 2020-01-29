@@ -13,6 +13,8 @@ namespace MapRefresh
         private readonly Map _mapView;
         private readonly string _runtime;
         private Esri.ArcGISRuntime.Mapping.Viewpoint _currentViewpoint;
+        private bool _isZoomDurationActive;
+
         #endregion
 
         public LegacyZoomProvider(ESRI.ArcGIS.Client.Map mapView)
@@ -22,6 +24,21 @@ namespace MapRefresh
         }
 
         public override string RuntimeVersion => _runtime;
+
+        public override bool IsZoomDurationActive
+        {
+            get => _isZoomDurationActive;
+            set
+            {
+                if (_isZoomDurationActive != value)
+                {
+                    _isZoomDurationActive = value;
+                    OnPropertyChanged(nameof(IsZoomDurationActive));
+                    _mapView.ZoomDuration = value ? TimeSpan.FromMilliseconds(750) : TimeSpan.Zero;
+                }
+            }
+        }
+
         public override async Task ZoomTo(Esri.ArcGISRuntime.Mapping.Viewpoint viewpoint)
         {
             _currentViewpoint = viewpoint;
