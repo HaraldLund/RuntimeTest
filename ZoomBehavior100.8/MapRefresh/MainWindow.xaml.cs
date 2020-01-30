@@ -28,6 +28,8 @@ namespace MapRefresh
         private readonly ViewpointProvider _viewpointProvider;
         #endregion
 
+        private bool _startAutomatic = false;
+        private bool _useOldversion = false;
         public MainWindow()
         {
             DataContext = this;
@@ -51,13 +53,42 @@ namespace MapRefresh
             
         }
 
+        Map _map = null;
         private async void InitializeMap()
         {
             var c = new InitConfig();
             var map = await c.GetMap();
+            _startAutomatic = c.configuration.startAutomatic;
+            _useOldversion = c.configuration.oldVersion;
             MyMapView.Map = map;
+            _map = map;
             map.LoadStatusChanged += _map_LoadStatusChanged;
+            LegacyMapLoader.MapLoaded += Map_Loaded;
             await map.LoadAsync();
+            tabMaps.SelectedIndex = 1;
+          
+
+        }
+
+     
+        private void Map_Loaded(object sender, EventArgs e)
+        {
+            LegacyMapLoader.MapLoaded -= Map_Loaded;
+            if (_startAutomatic)
+            {
+                if (!_useOldversion)
+                {
+                    tabMaps.SelectedIndex = 0;
+                    buttonz_Click(this, null);
+                }
+                else
+                {
+                    tabMaps.SelectedIndex = 1;
+                    StartSimulateLegacy(this, null);
+                }
+            }
+            else tabMaps.SelectedIndex = 0;
+         
         }
 
         private void _map_LoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
@@ -65,7 +96,9 @@ namespace MapRefresh
             if (sender is Map map && e.Status == Esri.ArcGISRuntime.LoadStatus.Loaded)
             {
                 Dispatcher.BeginInvoke((Action)(() => LegacyMapLoader.InitializeLegacy(LegacyMap, map)));
+
             }
+            
         }
 
         public static readonly DependencyProperty LegacyZoomSimulatorProperty = DependencyProperty.Register("LegacyZoomSimulator", typeof(ZoomSimulator), typeof(MainWindow), new FrameworkPropertyMetadata(null));

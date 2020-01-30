@@ -25,6 +25,8 @@ namespace MapRefresh
     [Serializable]
     public class Config
     {
+        public bool startAutomatic { get; set; }
+        public bool oldVersion { get; set; }
         public bool usetileCache { get; set; }
         public string basemap { get; set; }
         public webMap webMap { get; set; }

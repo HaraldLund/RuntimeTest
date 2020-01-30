@@ -5,7 +5,8 @@ namespace MapRefresh
 {
     public static class LegacyMapLoader
     {
-
+        public delegate void MapLoadedEventHandler(object sender, EventArgs e);
+        public static event MapLoadedEventHandler MapLoaded;
         public static void InitializeLegacy(ESRI.ArcGIS.Client.Map mapView, Esri.ArcGISRuntime.Mapping.Map sourceMap)
         {
             AddLayers("Base layers", mapView, sourceMap.Basemap.BaseLayers);
@@ -27,6 +28,7 @@ namespace MapRefresh
                 }
             }
             map.Layers.Add(group);
+            
         }
         private static Layer Convert(Esri.ArcGISRuntime.Mapping.ILayerContent item)
         {
@@ -54,10 +56,17 @@ namespace MapRefresh
                 layer.Visible = item.IsVisible;
                 layer.ID = item.Name;
                 layer.InitializationFailed += InitializationFailed;
+                layer.Initialized += Layer_Initialized; 
             }
 
             return layer;
         }
+
+        private static void Layer_Initialized(object sender, EventArgs e)
+        {
+            MapLoaded?.Invoke(sender, e);          
+        }
+
 
         private static void InitializationFailed(object sender, EventArgs e)
         {

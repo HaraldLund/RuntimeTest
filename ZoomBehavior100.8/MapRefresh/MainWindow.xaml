@@ -13,7 +13,7 @@
         <mapRefresh:InvertBoolConverter x:Key="InvertBoolConverter"/>
     </Window.Resources>
     <DockPanel>
-        <TabControl>
+        <TabControl x:Name="tabMaps">
             <TabItem Header="Runtime .NET">
                 <DockPanel>
                     <DockPanel DockPanel.Dock="Right" Width="400">
