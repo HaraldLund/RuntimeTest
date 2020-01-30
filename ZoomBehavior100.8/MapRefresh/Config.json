@@ -1,7 +1,7 @@
 {
-  "startAutomatic": false,
+  "startAutomatic": true,
   "oldVersion":  false,
-  "usetileCache": false,
+  "usetileCache": true,
   "basemap": "https://kart.locusps.no/locuskart/rest/services/LocusKartetTopo/MapServer",
   "webMap": {
     "url": "https://geodata.maps.arcgis.com/sharing/rest",

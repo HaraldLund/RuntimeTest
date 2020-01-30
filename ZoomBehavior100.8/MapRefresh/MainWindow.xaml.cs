@@ -46,12 +46,25 @@ namespace MapRefresh
 
             _viewpointProvider = new ViewpointProvider();
             ZoomSimulator = new ZoomSimulator(_viewpointProvider, new ZoomProvider(MyMapView), this);
+            ZoomSimulator.ProcessFinished += ZoomSimulator_ProcessFinished;
             LegacyZoomProvider lzp = new LegacyZoomProvider(LegacyMap);
             LegacyZoomSimulator = new ZoomSimulator(_viewpointProvider, lzp, this);
+            LegacyZoomSimulator.ProcessFinished += LegacyZoomSimulator_ProcessFinished;
 
             InitializeMap();
             
         }
+
+        private void LegacyZoomSimulator_ProcessFinished(object sender, EventArgs e)
+        {
+            if (_startAutomatic) Application.Current.Shutdown();
+        }
+
+        private void ZoomSimulator_ProcessFinished(object sender, EventArgs e)
+        {
+            if (_startAutomatic) Application.Current.Shutdown();
+        }
+
 
         Map _map = null;
         private async void InitializeMap()
@@ -397,7 +410,8 @@ namespace MapRefresh
             var viewpoint = _viewpointProvider.GetNext();
             if (viewpoint == null)
             {
-                return false;
+                ProcessFinished(this, null);
+                return false;                
             }
 
             await Task.Delay(500);
@@ -489,10 +503,17 @@ namespace MapRefresh
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public event ProcessFinishedEventHandler ProcessFinished;
+
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public delegate void ProcessFinishedEventHandler(object sender, EventArgs e);
+
+        
+
     }
 
     public enum SimulationMode
@@ -554,6 +575,7 @@ namespace MapRefresh
         }
 
         public abstract bool IsZoomDurationActive { get; set; }
+        
     }
     #endregion
 
