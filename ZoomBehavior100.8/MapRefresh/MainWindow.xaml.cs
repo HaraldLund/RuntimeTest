@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -15,6 +16,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Data;
 
 namespace MapRefresh
@@ -30,11 +32,12 @@ namespace MapRefresh
 
         private bool _startAutomatic = false;
         private bool _useOldversion = false;
+        InitConfig _configuration;
         public MainWindow()
         {
             DataContext = this;
             InitializeComponent();
-            
+            _configuration = new InitConfig();
 
             //string url = "https://services2.geodataonline.no/arcgis/rest/services/Geocache_UTM33_EUREF89/GeocacheBasis/MapServer";
             ////url = "https://services.geodataonline.no/arcgis/rest/services/Geocache_WMAS_WGS84/GeocacheBasis/MapServer";
@@ -44,7 +47,7 @@ namespace MapRefresh
             //_map.Basemap = new Basemap(imageryTiledLayer);
             //MyMapView.Map = _map;
 
-            _viewpointProvider = new ViewpointProvider();
+            _viewpointProvider = new ViewpointProvider(_configuration.Configuration.ActualViewpoints);
             ZoomSimulator = new ZoomSimulator(_viewpointProvider, new ZoomProvider(MyMapView), this);
             ZoomSimulator.ProcessFinished += ZoomSimulator_ProcessFinished;
             LegacyZoomProvider lzp = new LegacyZoomProvider(LegacyMap);
@@ -69,18 +72,15 @@ namespace MapRefresh
         Map _map = null;
         private async void InitializeMap()
         {
-            var c = new InitConfig();
-            var map = await c.GetMap();
-            _startAutomatic = c.configuration.startAutomatic;
-            _useOldversion = c.configuration.oldVersion;
+            var map = await _configuration.GetMap();
+            _startAutomatic = _configuration.Configuration.startAutomatic;
+            _useOldversion = _configuration.Configuration.oldVersion;
             MyMapView.Map = map;
             _map = map;
             map.LoadStatusChanged += _map_LoadStatusChanged;
             LegacyMapLoader.MapLoaded += Map_Loaded;
             await map.LoadAsync();
             tabMaps.SelectedIndex = 1;
-          
-
         }
 
      
@@ -109,9 +109,7 @@ namespace MapRefresh
             if (sender is Map map && e.Status == Esri.ArcGISRuntime.LoadStatus.Loaded)
             {
                 Dispatcher.BeginInvoke((Action)(() => LegacyMapLoader.InitializeLegacy(LegacyMap, map)));
-
             }
-            
         }
 
         public static readonly DependencyProperty LegacyZoomSimulatorProperty = DependencyProperty.Register("LegacyZoomSimulator", typeof(ZoomSimulator), typeof(MainWindow), new FrameworkPropertyMetadata(null));
@@ -199,10 +197,35 @@ namespace MapRefresh
             base.OnKeyUp(e);
             if(e.Key == Key.Space)
             {
-                Trace.WriteLine(MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).ToJson());
+                if (Keyboard.Modifiers == ModifierKeys.Control)
+                {
+                    try
+                    {
+                        var targetFile = "Viewpoints.json";
+                        var json = string.Join($",{Environment.NewLine}", _viewpoints.Select(JsonAsString));
+                        File.WriteAllText(targetFile, json);
+                        MessageBox.Show(this, $"Saved to file {targetFile}");
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(this, ex.Message);
+                    }
+                }
+                else
+                {
+                    var viewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale);
+                    Trace.WriteLine(viewpoint.ToJson());
+                    _viewpoints.Add(viewpoint);
+                }
             }
         }
 
+        private string JsonAsString(Viewpoint arg)
+        {
+            return $"\"{arg.ToJson().Replace("\"", "\\\"")}\"";
+        }
+
+        private List<Viewpoint> _viewpoints = new List<Viewpoint>();
         #region Simulate wheel
         [DllImport("User32.dll")]
         private static extern bool SetCursorPos(int X, int Y);

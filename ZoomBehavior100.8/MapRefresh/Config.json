@@ -1,10 +1,15 @@
 {
-  "startAutomatic": true,
+  "startAutomatic": false,
   "oldVersion":  false,
   "usetileCache": true,
   "basemap": "https://kart.locusps.no/locuskart/rest/services/LocusKartetTopo/MapServer",
   "webMap": {
     "url": "https://geodata.maps.arcgis.com/sharing/rest",
     "item": "3201629d9aed4aceba4a489377778017"
-  }
+  },
+  "viewpoints": [
+    "{\"rotation\":0,\"scale\":154273.19929804196,\"targetGeometry\":{\"x\":78520.756078523584,\"y\":6958360.9979531877,\"spatialReference\":{\"wkid\":25833}}}",
+    "{\"rotation\":0,\"scale\":29186.856474577202,\"targetGeometry\":{\"x\":-11183.579519677547,\"y\":6825185.9735391038,\"spatialReference\":{\"wkid\":25833}}}",
+    "{\"rotation\":0,\"scale\":29186.856474577202,\"targetGeometry\":{\"x\":-25199.655266624781,\"y\":6802667.5840746062,\"spatialReference\":{\"wkid\":25833}}}"
+  ]
 }

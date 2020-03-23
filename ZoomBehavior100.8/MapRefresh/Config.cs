@@ -30,12 +30,17 @@ namespace MapRefresh
         public bool usetileCache { get; set; }
         public string basemap { get; set; }
         public webMap webMap { get; set; }
-                             
+        public IList<string> viewpoints { get; set; }
+
+        public IList<Viewpoint> ActualViewpoints
+        {
+            get { return viewpoints?.Select(Viewpoint.FromJson).ToList(); }
+        }
     }
 
     public class InitConfig
     {
-        public Config configuration { get { return _config; }  }
+        public Config Configuration { get { return _config; }  }
         private Config _config;
         public InitConfig()
         {           

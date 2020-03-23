@@ -11,9 +11,16 @@ namespace MapRefresh
         private readonly Queue<Viewpoint> _queue = new Queue<Viewpoint>();
         #endregion
 
-        public ViewpointProvider()
+        public ViewpointProvider(IList<Viewpoint> viewponts)
         {
-            BuildViewpoints();
+            if (viewponts == null || viewponts.Count == 0)
+            {
+                BuildViewpoints();
+            }
+            else
+            {
+                _viewpoints.AddRange(viewponts);
+            }
         }
 
         private void BuildViewpoints()
